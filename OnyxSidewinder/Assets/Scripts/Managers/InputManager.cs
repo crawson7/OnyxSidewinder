@@ -120,12 +120,14 @@ public class InputManager : MonoBehaviour {
         Logger.Log("Touch at: (" + pos.x + ", " + pos.y + ")");
         LastTouch = pos;
         Touching = true;
+        Game.Instance.HandleTouch(pos);
     }
 
     private void Release(Vector2 pos)
     {
         Logger.Log("Release at: (" + pos.x + ", " + pos.y + ")");
         Touching = false;
+        Game.Instance.HandleRelease(pos);
     }
 
     private void Drag(Vector2 delta, Vector2 total)

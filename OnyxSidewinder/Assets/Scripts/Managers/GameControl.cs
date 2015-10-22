@@ -77,8 +77,14 @@ public class GameControl : MonoBehaviour {
 
     private void StartGame()
     {
-        Game.Instance.Initialize();
+        if(!Game.Instance.Initialize())
+        {
+            Logger.Log("Game System could not initialize");
+            return;
+        }
+
         GameInitialized = true;
+        Game.Instance.Start();
     }
 
     private void StartUpError(string s)
