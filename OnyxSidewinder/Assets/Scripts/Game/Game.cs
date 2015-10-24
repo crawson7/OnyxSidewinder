@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Game
 {
@@ -20,6 +21,9 @@ public class Game
     #endregion
 
     private PlayerController _player;
+    private float _checkInterval;
+    private float _checkFrequency = 0.1f;
+    private List<PlanetController> _planets = new List<PlanetController>();
     public GameObject GameObj;
     public GameObject DialogsObj;
     public bool Touching;
@@ -33,13 +37,33 @@ public class Game
         if(GameObj == null || DialogsObj == null) { Logger.Log("Could not find parent objects"); return false; }
 
         if (!LoadPlayer()) { return false; }
+        if (!LoadPlanets()) { return false; }
         Logger.Log("Game System Initialized.");
         return true;
     }
 
     public void Update()
     {
+        _checkInterval += Time.deltaTime;
+        if (_checkInterval >= _checkFrequency)
+        {
+            if (!_player.Orbiting)
+            { CheckShipAttach(); }
+        }
     }
+
+    private void CheckShipAttach()
+    {
+        for (int i = 0; i < _planets.Count; i++)
+        {
+            if (!_planets[i].Active) { continue; }
+            if (_planets[i].TestCollision())
+            {
+                return;
+            }
+        }
+    }
+
 
     public bool LoadPlayer()
     {
@@ -52,24 +76,84 @@ public class Game
         return true;
     }
 
+    public bool LoadPlanets()
+    {
+        // This will all eventually be either procedural or from data.
+        GameObject prefab = Resources.Load("Game/Planet") as GameObject;
+
+        GameObject planet1 = GameObject.Instantiate<GameObject>(prefab);
+        if(planet1 == null) { return false; }
+        PlanetController pc = planet1.GetComponent<PlanetController>();
+        pc.Initialize(0.5f, 5.0f);
+        _planets.Add(pc);
+        pc = planet1.GetComponent<PlanetController>();
+        pc.gameObject.transform.position = new Vector3(4, 5, 0);
+        pc.gameObject.transform.SetParent(GameObj.transform, false);
+
+        GameObject planet2 = GameObject.Instantiate<GameObject>(prefab);
+        if (planet2 == null) { return false; }
+        PlanetController pc2 = planet2.GetComponent<PlanetController>();
+        pc2.Initialize(0.5f, 5.0f);
+        _planets.Add(pc2);
+        pc2 = planet2.GetComponent<PlanetController>();
+        pc2.gameObject.transform.position = new Vector3(-4, 5, 0);
+        pc2.gameObject.transform.SetParent(GameObj.transform, false);
+
+        GameObject planet3 = GameObject.Instantiate<GameObject>(prefab);
+        if (planet3 == null) { return false; }
+        PlanetController pc3 = planet3.GetComponent<PlanetController>();
+        pc3.Initialize(0.5f, 5.0f);
+        _planets.Add(pc3);
+        pc3 = planet3.GetComponent<PlanetController>();
+        pc3.gameObject.transform.position = new Vector3(4, -5, 0);
+        pc3.gameObject.transform.SetParent(GameObj.transform, false);
+
+        GameObject planet4 = GameObject.Instantiate<GameObject>(prefab);
+        if (planet4 == null) { return false; }
+        PlanetController pc4 = planet4.GetComponent<PlanetController>();
+        pc4.Initialize(0.5f, 5.0f);
+        _planets.Add(pc4);
+        pc4 = planet4.GetComponent<PlanetController>();
+        pc4.gameObject.transform.position = new Vector3(-4, -5, 0);
+        pc4.gameObject.transform.SetParent(GameObj.transform, false);
+        return true;
+    }
+
     public void Start()
     {
+        _player.SetSpeed(4.0f);
     }
 
     public void HandleTouch(Vector2 pos)
     {
-        Vector3 forward = _player.Forward;
-        Vector3 force = forward * 2.5f;
-        _player.Body.AddForce(force, ForceMode2D.Impulse);
-        _player.Body.angularVelocity = 0;
+        //_player.Orbit(new Vector2(-1.0f, 0), true);
+        _player.Release();
     }
 
     public void HandleRelease(Vector2 pos)
     {
-        float magnitude = _player.Body.velocity.magnitude;
-        float circumfrence = 2.0f * Mathf.PI * _player.Radius;
-        float torque = (7.5f / circumfrence) * magnitude; // 7.5 is the time for 1 full rotation with 1 torque.
-        _player.Body.AddTorque(torque, ForceMode2D.Impulse);
-        _player.Body.velocity = Vector2.zero;
+        //_player.Release();
     }
+
+    public void HandlePlanetCollide(PlanetController planet)
+    {
+        _player.Kill();
+        End(false);
+    }
+
+    public void HandleGravityCollide(PlanetController planet)
+    {
+        for(int i=0; i<_planets.Count; i++)
+        {
+            _planets[i].Active = true;
+        }
+        _player.Orbit(planet);
+    }
+
+
+    public void End(bool win)
+    {
+        //End the game
+    }
+
 }
