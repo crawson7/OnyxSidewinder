@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Game
@@ -24,6 +23,8 @@ public class Game
     private float _checkInterval;
     private float _checkFrequency = 0.1f;
     private List<PlanetController> _planets = new List<PlanetController>();
+    private bool _active;
+
     public GameObject GameObj;
     public GameObject DialogsObj;
     public bool Touching;
@@ -39,11 +40,14 @@ public class Game
         if (!LoadPlayer()) { return false; }
         if (!LoadPlanets()) { return false; }
         Logger.Log("Game System Initialized.");
+        _active = true;
         return true;
     }
 
     public void Update()
     {
+        if(!_active) { return; }
+
         _checkInterval += Time.deltaTime;
         if (_checkInterval >= _checkFrequency)
         {
@@ -84,7 +88,7 @@ public class Game
         GameObject planet1 = GameObject.Instantiate<GameObject>(prefab);
         if(planet1 == null) { return false; }
         PlanetController pc = planet1.GetComponent<PlanetController>();
-        pc.Initialize(0.5f, 5.0f);
+        pc.Initialize(0.75f, 3.0f);
         _planets.Add(pc);
         pc = planet1.GetComponent<PlanetController>();
         pc.gameObject.transform.position = new Vector3(4, 5, 0);
@@ -93,7 +97,7 @@ public class Game
         GameObject planet2 = GameObject.Instantiate<GameObject>(prefab);
         if (planet2 == null) { return false; }
         PlanetController pc2 = planet2.GetComponent<PlanetController>();
-        pc2.Initialize(0.5f, 5.0f);
+        pc2.Initialize(0.5f, 3.0f);
         _planets.Add(pc2);
         pc2 = planet2.GetComponent<PlanetController>();
         pc2.gameObject.transform.position = new Vector3(-4, 5, 0);
@@ -102,7 +106,7 @@ public class Game
         GameObject planet3 = GameObject.Instantiate<GameObject>(prefab);
         if (planet3 == null) { return false; }
         PlanetController pc3 = planet3.GetComponent<PlanetController>();
-        pc3.Initialize(0.5f, 5.0f);
+        pc3.Initialize(1f, 3.0f);
         _planets.Add(pc3);
         pc3 = planet3.GetComponent<PlanetController>();
         pc3.gameObject.transform.position = new Vector3(4, -5, 0);
@@ -111,7 +115,7 @@ public class Game
         GameObject planet4 = GameObject.Instantiate<GameObject>(prefab);
         if (planet4 == null) { return false; }
         PlanetController pc4 = planet4.GetComponent<PlanetController>();
-        pc4.Initialize(0.5f, 5.0f);
+        pc4.Initialize(0.25f, 3.0f);
         _planets.Add(pc4);
         pc4 = planet4.GetComponent<PlanetController>();
         pc4.gameObject.transform.position = new Vector3(-4, -5, 0);
@@ -121,18 +125,17 @@ public class Game
 
     public void Start()
     {
-        _player.SetSpeed(4.0f);
+        _player.SetSpeed(8.0f);
     }
 
     public void HandleTouch(Vector2 pos)
     {
-        //_player.Orbit(new Vector2(-1.0f, 0), true);
         _player.Release();
     }
 
     public void HandleRelease(Vector2 pos)
     {
-        //_player.Release();
+        // Do nothing for now.
     }
 
     public void HandlePlanetCollide(PlanetController planet)
@@ -153,7 +156,8 @@ public class Game
 
     public void End(bool win)
     {
-        //End the game
+        _active = false;
+        Logger.Log("GAME OVER");
     }
 
 }

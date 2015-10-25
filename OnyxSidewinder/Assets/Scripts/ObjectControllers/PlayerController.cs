@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private bool _orbiting;
     private float _radius;
     private PlanetController _orbit;
+    private bool _alive;
 
     public GameObject PlayerObject;
     public GameObject Pivot;
@@ -21,16 +22,18 @@ public class PlayerController : MonoBehaviour
     public bool Initialize()
     {
         _orbiting = false;
+        _alive = true;
         return true;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (!_alive) { return; }
+
         if (_orbiting)
         {
             Pivot.transform.Rotate(new Vector3(0, 0, _rotationSpeed * Time.deltaTime));
-            Logger.Log("Rotation Speed: " + _rotationSpeed + " Angle: " + Pivot.transform.eulerAngles.z + " - Time: " + Time.time);
         }
         else
         {
@@ -40,7 +43,8 @@ public class PlayerController : MonoBehaviour
 
     public void Kill()
     {
-        // Kill the player
+        _alive = false;
+        PlayerObject.SetActive(false);
     }
 
     public void SetSpeed(float s)
@@ -72,7 +76,6 @@ public class PlayerController : MonoBehaviour
         float circumfrence = Mathf.PI * Radius * 2.0f;
         Vector3 planetPosRelativeToPlayer = PlayerObject.transform.InverseTransformPoint(_orbit.transform.position);
         _rotationSpeed = _forwardSpeed / circumfrence * 360 * -Utilities.AngleDirection2(Forward, planetPosRelativeToPlayer);
-        //SetSpeed(0);
         _orbiting = true;
     }
 
@@ -80,7 +83,6 @@ public class PlayerController : MonoBehaviour
     {
         float circumfrence = Mathf.PI * Radius * 2.0f;
         SetSpeed(circumfrence * (_rotationSpeed * 0.00278f));
-        //_rotationSpeed = 0;
         _orbiting = false;
     }
 

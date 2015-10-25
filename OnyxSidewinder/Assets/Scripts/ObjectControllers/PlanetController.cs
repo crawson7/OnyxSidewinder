@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class PlanetController : MonoBehaviour {
-
+    public GameObject PlanetObject;
+    public GameObject GravityObject;
     public bool Active; // Determines if this planet is to be considered in the collisiton tests.
 
     public Vector3 Center { get { return gameObject.transform.position; } }
@@ -12,13 +13,25 @@ public class PlanetController : MonoBehaviour {
 
     public void Initialize(float body, float gravity)
     {
-        BodyRadius = body;
-        GravityRadius = gravity;
         Active = true;
+        SetBodySize(body);
+        SetGravitySize(gravity);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
+    }
+
+    private void SetBodySize(float body)
+    {
+        BodyRadius = body;
+        PlanetObject.transform.localScale = Vector3.one * body * 2.0f;
+    }
+
+    private void SetGravitySize(float gravity)
+    {
+        GravityRadius = gravity;
+        GravityObject.transform.localScale = Vector3.one * gravity * 2.0f;
     }
 
     public bool TestCollision()
@@ -45,15 +58,8 @@ public class PlanetController : MonoBehaviour {
 
     public bool GravityCollision(Vector3 pos)
     {
-        // ToDo: Test to see if the pod has collided with the gravitational pull of the planet.
-        // This is basically if the pod has crossed the line that runs from the center of the planet perpendicular
-        // to the pods forward vector.
         float dist = Vector3.Magnitude(pos - Center);
         Vector3 planetPosRelativeToPlayer = Game.Instance.Player.PlayerObject.transform.InverseTransformPoint(gameObject.transform.position);
-        if(dist <= GravityRadius)
-        {
-            Logger.Log("PlanetRelative: " + planetPosRelativeToPlayer);
-        }
         return (dist <= GravityRadius && planetPosRelativeToPlayer.y <= 0);
     }
 
