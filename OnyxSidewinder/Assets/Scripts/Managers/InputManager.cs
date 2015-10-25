@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour {
     #region Singleton Access
     private static InputManager _instance;
 
-    public static InputManager Instance
+    public static InputManager Instance // Is there a reason that this isn't more descriptive? -jake
     {
         get
         {
@@ -72,19 +72,22 @@ public class InputManager : MonoBehaviour {
         Vector2 pos = Input.mousePosition;
         Vector2 delta = pos - LastTouchPos;
       
+        // Left button controls
         if (Input.GetMouseButtonDown(0) && !Touching)
         {
             Touch(pos);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            // No effect
         }
         if(Input.GetMouseButtonUp(0) && Touching)
         {
             Release(pos);
         }
+
+        // Right button controls
         if (Input.GetMouseButtonDown(1))
+        {
+            // No effect
+        }
+        if (Input.GetMouseButtonUp(1)) 
         {
             // No effect
         }
