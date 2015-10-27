@@ -27,6 +27,7 @@ public class Game
     private bool _playing; // The current level is running, time is advancing, player is playing.
     public GameObject GameObj;
     public GameObject DialogsObj;
+
     public bool Touching;
 
     public PlayerController Player { get { return _player; } }

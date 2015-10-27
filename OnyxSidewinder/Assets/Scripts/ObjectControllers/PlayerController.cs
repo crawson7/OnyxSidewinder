@@ -63,10 +63,11 @@ public class PlayerController : MonoBehaviour
     public void UpdatePosition()
     {
         Vector2 position = PlayerObject.transform.position;
-        PlayerObject.transform.LookAt(position + _velocity, new Vector3(0,0,-1));
+        //PlayerObject.transform.LookAt(position + _velocity, new Vector3(0,0,-1));
         position += (_velocity * Time.deltaTime) + (Time.deltaTime * new Vector2(0, -_gravity) * 0.5f);
         _velocity += new Vector2(0, Time.deltaTime * -_gravity);
         PlayerObject.transform.position = position;
+        PlayerObject.transform.LookAt(position + _velocity, new Vector3(0, 0, -1));
     }
     
     public void Kill()

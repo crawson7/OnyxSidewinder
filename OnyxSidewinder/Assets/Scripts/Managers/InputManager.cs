@@ -108,6 +108,14 @@ public class InputManager : MonoBehaviour {
         {
             Logger.Log("You pressed the letter 'A'");
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CameraManager.Instance.GameCam.AddBehavior("PlayerCloseFollow", 0);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            CameraManager.Instance.GameCam.RemoveBehavior("PlayerCloseFollow");
+        }
     }
     #endregion
 
