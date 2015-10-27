@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\Game.cs" />
-    <Compile Include="Assets\Scripts\Managers\Animation.cs" />
     <Compile Include="Assets\Scripts\Managers\GameControl.cs" />
     <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Logger.cs" />

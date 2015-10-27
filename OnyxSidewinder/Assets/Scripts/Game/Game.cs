@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class Game
@@ -23,13 +23,14 @@ public class Game
     private float _checkInterval;
     private float _checkFrequency = 0.1f;
     private List<PlanetController> _planets = new List<PlanetController>();
-    private bool _active;
-
+    private bool _active; // The Game is running
+    private bool _playing; // The current level is running, time is advancing, player is playing.
     public GameObject GameObj;
     public GameObject DialogsObj;
     public bool Touching;
 
     public PlayerController Player { get { return _player; } }
+    public bool LevelActive {get{return _playing;}}
 
     public bool Initialize()
     {
@@ -41,9 +42,20 @@ public class Game
         if (!LoadPlanets()) { return false; }
         Logger.Log("Game System Initialized.");
         _active = true;
+        _playing = false;
         return true;
     }
 
+    public void Restart()
+    {
+        _player.Reset(new Vector3(2, 0,0));
+        for(int i=0; i<_planets.Count; i++)
+        {
+            _planets[i].Reset();
+        }
+        _active = true;
+    }
+    
     public void Update()
     {
         if(!_active) { return; }
@@ -74,7 +86,7 @@ public class Game
         GameObject prefab = Resources.Load("Game/Player") as GameObject;
         GameObject player = GameObject.Instantiate<GameObject>(prefab);
         _player = player.GetComponent<PlayerController>();
-        _player.gameObject.transform.position = Vector3.zero;
+        _player.gameObject.transform.position = new Vector3(2, 0,0);
         _player.gameObject.transform.SetParent(GameObj.transform, false);
         if (!_player.Initialize()) { Logger.Log("Player did not initialize propperly"); return false; }
         return true;
@@ -88,7 +100,7 @@ public class Game
         GameObject planet1 = GameObject.Instantiate<GameObject>(prefab);
         if(planet1 == null) { return false; }
         PlanetController pc = planet1.GetComponent<PlanetController>();
-        pc.Initialize(0.75f, 3.0f);
+        pc.Initialize(0.75f, 4.0f);
         _planets.Add(pc);
         pc = planet1.GetComponent<PlanetController>();
         pc.gameObject.transform.position = new Vector3(4, 5, 0);
@@ -97,7 +109,7 @@ public class Game
         GameObject planet2 = GameObject.Instantiate<GameObject>(prefab);
         if (planet2 == null) { return false; }
         PlanetController pc2 = planet2.GetComponent<PlanetController>();
-        pc2.Initialize(0.5f, 3.0f);
+        pc2.Initialize(0.5f, 4.0f);
         _planets.Add(pc2);
         pc2 = planet2.GetComponent<PlanetController>();
         pc2.gameObject.transform.position = new Vector3(-4, 5, 0);
@@ -106,7 +118,7 @@ public class Game
         GameObject planet3 = GameObject.Instantiate<GameObject>(prefab);
         if (planet3 == null) { return false; }
         PlanetController pc3 = planet3.GetComponent<PlanetController>();
-        pc3.Initialize(1f, 3.0f);
+        pc3.Initialize(1f, 4.0f);
         _planets.Add(pc3);
         pc3 = planet3.GetComponent<PlanetController>();
         pc3.gameObject.transform.position = new Vector3(4, -5, 0);
@@ -115,7 +127,7 @@ public class Game
         GameObject planet4 = GameObject.Instantiate<GameObject>(prefab);
         if (planet4 == null) { return false; }
         PlanetController pc4 = planet4.GetComponent<PlanetController>();
-        pc4.Initialize(0.25f, 3.0f);
+        pc4.Initialize(0.25f, 4.0f);
         _planets.Add(pc4);
         pc4 = planet4.GetComponent<PlanetController>();
         pc4.gameObject.transform.position = new Vector3(-4, -5, 0);
@@ -125,12 +137,20 @@ public class Game
 
     public void Start()
     {
-        _player.SetSpeed(8.0f);
+        //_player.SetSpeed(12.0f);
     }
 
     public void HandleTouch(Vector2 pos)
     {
-        _player.Release();
+        if(_player.Orbiting)
+        {
+            _player.Release();
+        }
+        else
+        {
+            _playing = true;
+            _player.SetSpeed(12.0f);
+        }
     }
 
     public void HandleRelease(Vector2 pos)
@@ -157,7 +177,9 @@ public class Game
     public void End(bool win)
     {
         _active = false;
+        _playing = false;
         Logger.Log("GAME OVER");
+        Restart();
     }
 
 }
