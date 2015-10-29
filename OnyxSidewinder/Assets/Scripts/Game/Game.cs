@@ -24,6 +24,7 @@ public class Game
     private float _checkFrequency = 0.1f;
     private List<PlanetController> _planets = new List<PlanetController>();
     private bool _active;
+    private OnyxUIController _uicontrol;
 
     public GameObject GameObj;
     public GameObject DialogsObj;
@@ -39,6 +40,7 @@ public class Game
 
         if (!LoadPlayer()) { return false; }
         if (!LoadPlanets()) { return false; }
+        if (!LoadUI()) { return false; }
         Logger.Log("Game System Initialized.");
         _active = true;
         return true;
@@ -68,13 +70,23 @@ public class Game
         }
     }
 
+    public bool LoadUI()
+    {
+        GameObject prefab = Resources.Load("UI/OnyxUI") as GameObject;
+        GameObject onyxUI = GameObject.Instantiate<GameObject>(prefab);
+        _uicontrol = onyxUI.GetComponent<OnyxUIController>();
+        if(!_uicontrol.Initialize()) { Logger.Log("UI did not initialize properly"); return false; }
+
+        return true;
+    }
+
 
     public bool LoadPlayer()
     {
         GameObject prefab = Resources.Load("Game/Player") as GameObject;
         GameObject player = GameObject.Instantiate<GameObject>(prefab);
         _player = player.GetComponent<PlayerController>();
-        _player.gameObject.transform.position = Vector3.zero;
+        _player.gameObject.transform.position = new Vector3(0, -8, 0);
         _player.gameObject.transform.SetParent(GameObj.transform, false);
         if (!_player.Initialize()) { Logger.Log("Player did not initialize propperly"); return false; }
         return true;
@@ -91,7 +103,7 @@ public class Game
         pc.Initialize(0.75f, 3.0f);
         _planets.Add(pc);
         pc = planet1.GetComponent<PlanetController>();
-        pc.gameObject.transform.position = new Vector3(4, 5, 0);
+        pc.gameObject.transform.position = new Vector3(4, 7, 0);
         pc.gameObject.transform.SetParent(GameObj.transform, false);
 
         GameObject planet2 = GameObject.Instantiate<GameObject>(prefab);
@@ -118,7 +130,7 @@ public class Game
         pc4.Initialize(0.25f, 3.0f);
         _planets.Add(pc4);
         pc4 = planet4.GetComponent<PlanetController>();
-        pc4.gameObject.transform.position = new Vector3(-4, -5, 0);
+        pc4.gameObject.transform.position = new Vector3(-4, -3, 0);
         pc4.gameObject.transform.SetParent(GameObj.transform, false);
         return true;
     }
@@ -142,6 +154,7 @@ public class Game
     {
         _player.Kill();
         End(false);
+        _uicontrol.setMessageText("yer dead!");
     }
 
     public void HandleGravityCollide(PlanetController planet)
@@ -151,6 +164,8 @@ public class Game
             _planets[i].Active = true;
         }
         _player.Orbit(planet);
+
+        _uicontrol.setMessageText(planet.Center.y.ToString("0"));
     }
 
 
