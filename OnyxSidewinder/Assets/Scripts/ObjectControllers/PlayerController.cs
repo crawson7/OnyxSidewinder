@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
     private PlanetController _orbit;
     private bool _alive;
     private Vector2 _velocity;
-    private float _gravity = 6.0f;
+    private float _gravity = 6.5f;
     private float _rotationAcceleration = 3.0f;
-    private float _topSpeed = 15;
+    private float _topSpeed = 18;
     private float _orbitStartSpeed;
     private float _orbitTime;
     private float _angleDirection;

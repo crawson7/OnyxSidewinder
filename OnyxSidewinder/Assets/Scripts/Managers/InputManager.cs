@@ -122,6 +122,17 @@ public class InputManager : MonoBehaviour {
     #region Touch Specific Inputs
     private void CheckTouchInputs()
     {
+        if(Input.touchCount>0)
+        {
+            if(Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                Touch(Input.GetTouch(0).position);
+            }
+            else if(Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                Release(Input.GetTouch(0).position);
+            }
+        }
     }
     #endregion
 
