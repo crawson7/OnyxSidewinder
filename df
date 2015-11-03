@@ -1,0 +1,75 @@
+[33mcommit 4dfaa1c8c004f00ec4cf30d1f10248223e6edb66[m
+Author: Jake Muehle <jakemuehle@gmail.com>
+Date:   Wed Oct 28 23:50:01 2015 -0600
+
+    Added UI Controller, Main UI element, and feedback for y position of planet player is orbiting.
+
+[33mcommit cc4727cd096d8cd8a0f8f0b00325b6e53c80beb9[m
+Merge: eb75d83 7974e46
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 24 19:42:21 2015 -0600
+
+    Merge branch 'master' of https://github.com/crawson7/OnyxSidewinder
+    
+    Conflicts:
+    	OnyxSidewinder/Assets/Scripts/ObjectControllers/PlanetController.cs
+
+[33mcommit eb75d8339acfecc69e4a62eb514a586d28ca2ed4[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 24 19:37:26 2015 -0600
+
+    Code Cleanup and added planet scaling.
+
+[33mcommit 7974e46a14f954e7a82f70e1e112a9095b1cf02c[m
+Author: Jake Muehle <jakemuehle@gmail.com>
+Date:   Sat Oct 24 12:42:16 2015 -0600
+
+    Added planet state colors while entering, exiting, or crashing into them.
+
+[33mcommit dad816fca16cce1af86b805df07c64211e3acd4d[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 24 09:24:10 2015 -0600
+
+    Basic proof of concept
+
+[33mcommit d3af5f1773852d3f56b7f5521ae8a8c6f20cea94[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Wed Oct 21 22:25:34 2015 -0600
+
+    Added Player instantiation and started playing with force controls.
+
+[33mcommit 9fbd5b453eb435c95794e458e5deb19018744b95[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Mon Oct 19 22:52:44 2015 -0600
+
+    Wrote basic Input Manager and Game Control Initialization. Added skeleton for Logger.
+
+[33mcommit 47a1e577481e076890a27e9533761fc70b36e166[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 17 20:54:09 2015 -0600
+
+    Modified Project Settings
+
+[33mcommit 301cb501cd69e9ed44442c105d6af53519a2917c[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 17 20:52:15 2015 -0600
+
+    Stop tracking Library files
+
+[33mcommit bc27c5b0eb3080aee592139210307ae9f84ae97a[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 17 20:47:46 2015 -0600
+
+    meta files, project settings and git ignore settings
+
+[33mcommit 400f8c86a564032889a2de634252d08b3da914ff[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 17 20:37:54 2015 -0600
+
+    Added more Base Project Structure and empty scripts
+
+[33mcommit ada13520ad768152291b7be552259dbe2ac15d65[m
+Author: crawson7 <crawson7@gmail.com>
+Date:   Sat Oct 17 14:16:22 2015 -0600
+
+    Initial Project Import

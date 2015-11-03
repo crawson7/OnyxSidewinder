@@ -131,7 +131,11 @@ public class Game
         pc.Initialize(0.6f, 3.5f);
         _planets.Add(pc);
         pc = planet1.GetComponent<PlanetController>();
+<<<<<<< HEAD
         pc.gameObject.transform.position = new Vector3(3.5f, 6f, 0);
+=======
+        pc.gameObject.transform.position = new Vector3(4, 7, 0);
+>>>>>>> 78b66fa92e30fff39084ac2ec2b4c01ccbba5414
         pc.gameObject.transform.SetParent(GameObj.transform, false);
 
         GameObject planet2 = GameObject.Instantiate<GameObject>(prefab);
@@ -158,7 +162,11 @@ public class Game
         pc4.Initialize(0.2f, 3.5f);
         _planets.Add(pc4);
         pc4 = planet4.GetComponent<PlanetController>();
+<<<<<<< HEAD
         pc4.gameObject.transform.position = new Vector3(-3.5f, -6f, 0);
+=======
+        pc4.gameObject.transform.position = new Vector3(-4, -3, 0);
+>>>>>>> 78b66fa92e30fff39084ac2ec2b4c01ccbba5414
         pc4.gameObject.transform.SetParent(GameObj.transform, false);
 
         GameObject planet5 = GameObject.Instantiate<GameObject>(prefab);

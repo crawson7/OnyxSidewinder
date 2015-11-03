@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (!_alive || !Game.Instance.LevelActive) { return; }
+        if (!_alive )/*|| !Game.Instance.LevelActive)*/ { return; }
 
         if (_orbiting)
         {
