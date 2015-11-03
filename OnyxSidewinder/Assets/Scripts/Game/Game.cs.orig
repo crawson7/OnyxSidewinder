@@ -23,9 +23,14 @@ public class Game
     private float _checkInterval;
     private float _checkFrequency = 0.1f;
     private List<PlanetController> _planets = new List<PlanetController>();
+<<<<<<< HEAD
     private bool _active;
     private OnyxUIController _uicontrol;
 
+=======
+    private bool _active; // The Game is running
+    private bool _playing; // The current level is running, time is advancing, player is playing.
+>>>>>>> 70d13a9af4caff6548ac0046f3a9dc88df986614
     public GameObject GameObj;
     public GameObject DialogsObj;
 
@@ -99,7 +104,11 @@ public class Game
         GameObject prefab = Resources.Load("Game/Player") as GameObject;
         GameObject player = GameObject.Instantiate<GameObject>(prefab);
         _player = player.GetComponent<PlayerController>();
+<<<<<<< HEAD
         _player.gameObject.transform.position = new Vector3(0, -8, 0);
+=======
+        _player.gameObject.transform.position = new Vector3(2, 0,0);
+>>>>>>> 70d13a9af4caff6548ac0046f3a9dc88df986614
         _player.gameObject.transform.SetParent(GameObj.transform, false);
         if (!_player.Initialize()) { Logger.Log("Player did not initialize propperly"); return false; }
         return true;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PlanetController : MonoBehaviour {
@@ -34,16 +34,22 @@ public class PlanetController : MonoBehaviour {
         GravityObject.transform.localScale = Vector3.one * gravity * 2.0f;
     }
 
+    public void Reset()
+    {
+    }
+    
     public bool TestCollision()
     {
         Vector3 pos = Game.Instance.Player.Position;
         if (BodyCollision(pos))
         {
+            Logger.Log("Body Collide");
             Game.Instance.HandlePlanetCollide(this);
             return true;
         }
         else if (GravityCollision(pos))
         {
+            Logger.Log("Gravity Collide");
             Game.Instance.HandleGravityCollide(this);
             return true;
         }
@@ -60,7 +66,7 @@ public class PlanetController : MonoBehaviour {
     {
         float dist = Vector3.Magnitude(pos - Center);
         Vector3 planetPosRelativeToPlayer = Game.Instance.Player.PlayerObject.transform.InverseTransformPoint(gameObject.transform.position);
-        return (dist <= GravityRadius && planetPosRelativeToPlayer.y <= 0);
+        return (dist <= GravityRadius && planetPosRelativeToPlayer.z <= 0);
     }
 
 }

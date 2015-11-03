@@ -108,12 +108,31 @@ public class InputManager : MonoBehaviour {
         {
             Logger.Log("You pressed the letter 'A'");
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CameraManager.Instance.GameCam.AddBehavior("PlayerCloseFollow", 0);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            CameraManager.Instance.GameCam.RemoveBehavior("PlayerCloseFollow");
+        }
     }
     #endregion
 
     #region Touch Specific Inputs
     private void CheckTouchInputs()
     {
+        if(Input.touchCount>0)
+        {
+            if(Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                Touch(Input.GetTouch(0).position);
+            }
+            else if(Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                Release(Input.GetTouch(0).position);
+            }
+        }
     }
     #endregion
 

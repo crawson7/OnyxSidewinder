@@ -60,7 +60,7 @@ public class GameControl : MonoBehaviour {
 
         if (InputManager.Instance.Initialize())
         { Logger.Log("Input Manager Initialization Successful."); }
-        else { Debug.LogError("Input Manager Initialization Failed"); return false; }
+        else { Logger.Log("Input Manager Initialization Failed"); return false; }
 
         return true;
     }
@@ -72,6 +72,9 @@ public class GameControl : MonoBehaviour {
 
     private bool LateInitialize()
     {
+        if (CameraManager.Instance.Initialize())
+        { Logger.Log("Camera Manager Initialization Successful."); }
+        else { Logger.Log("Camera Manager Initialization Failed"); return false; }
         return true;    
     }
 
