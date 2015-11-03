@@ -25,6 +25,7 @@ public class Game
     private List<PlanetController> _planets = new List<PlanetController>();
     private bool _active;
     private OnyxUIController _uicontrol;
+    private bool _playing;
 
     public GameObject GameObj;
     public GameObject DialogsObj;
