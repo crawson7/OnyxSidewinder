@@ -12,13 +12,13 @@ public class PlayerController : MonoBehaviour
     private PlanetController _orbit;
     private bool _alive;
     private Vector2 _velocity;
-    private float _gravity = 6.5f;
-    private float _rotationAcceleration = 3.0f;
-    private float _topSpeed = 18;
+    private float _gravity = 4.0f;
+    private float _rotationAcceleration = 2.0f;
+    private float _topSpeed = 15;
     private float _orbitStartSpeed;
     private float _orbitTime;
     private float _angleDirection;
-    private float _orbitAccelerationTime = 3.0f;
+    private float _orbitAccelerationTime = 4.0f;
     
     public GameObject PlayerObject;
     public GameObject Pivot;

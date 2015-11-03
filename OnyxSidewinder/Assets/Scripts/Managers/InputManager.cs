@@ -106,7 +106,8 @@ public class InputManager : MonoBehaviour {
         }
         if(Input.GetKeyDown(KeyCode.A))
         {
-            Logger.Log("You pressed the letter 'A'");
+            CameraManager.Instance.GameCam.gameObject.transform.position =
+                new Vector3(Game.Instance.Player.Position.x, Game.Instance.Player.Position.y, -10) ;
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
