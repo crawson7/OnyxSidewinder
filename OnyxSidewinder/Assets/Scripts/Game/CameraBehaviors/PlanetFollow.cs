@@ -14,6 +14,8 @@ public class PlanetFollow : BaseCameraBehavior
 
     public override void Evaluate()
     {
+        if(Game.Instance.ActivePlanet == null) { return; }
+
         Vector3 pos = Game.Instance.ActivePlanet.Center;
         pos.z = -10;
         if (Game.Instance.Player.Orbiting)
