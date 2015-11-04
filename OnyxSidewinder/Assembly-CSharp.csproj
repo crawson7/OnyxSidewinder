@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Pixelplacement\iTween.cs" />
+     <Compile Include="Assets\Scripts\Game\CameraBehaviors\PlanetFollow.cs" />
      <Compile Include="Assets\Scripts\Game\CameraBehaviors\PlayerCloseFollow.cs" />
+     <Compile Include="Assets\Scripts\Game\CameraBehaviors\ZoomWithSpeed.cs" />
      <Compile Include="Assets\Scripts\Game\Game.cs" />
      <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
      <Compile Include="Assets\Scripts\Managers\GameControl.cs" />

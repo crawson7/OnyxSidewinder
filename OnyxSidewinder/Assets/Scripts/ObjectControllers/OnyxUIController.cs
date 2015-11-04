@@ -5,9 +5,11 @@ using System.Collections;
 public class OnyxUIController : MonoBehaviour
 {
     Text instruction;
+    //public GameObject ProgressUI;
 
     public bool Initialize()
     {
+        
         instruction = GetComponent<Text>();
 
         return true;

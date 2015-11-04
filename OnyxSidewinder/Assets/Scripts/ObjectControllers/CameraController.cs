@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour
         _allBehaviors = new Dictionary<string, BaseCameraBehavior>();
         LoadBehaviors();
         _initialized = true;
+        SetBehavior("PlanetFollow");
         return true;
     }
 	
@@ -42,6 +43,12 @@ public class CameraController : MonoBehaviour
         PlayerCloseFollow b1 = new PlayerCloseFollow();
         b1.Initialize("PlayerCloseFollow");
         _allBehaviors.Add(b1.Name, b1);
+        PlanetFollow b2 = new PlanetFollow();
+        b2.Initialize("PlanetFollow");
+        _allBehaviors.Add(b2.Name, b2);
+        ZoomWithSpeed b3 = new ZoomWithSpeed();
+        b3.Initialize("ZoomWithSpeed");
+        _allBehaviors.Add(b3.Name, b3);
     }
 
     // Adds a new behavior in addition to existing behaviors
