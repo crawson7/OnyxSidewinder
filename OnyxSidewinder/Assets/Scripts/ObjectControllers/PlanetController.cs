@@ -5,6 +5,8 @@ public class PlanetController : MonoBehaviour {
     public GameObject PlanetObject;
     public GameObject GravityObject;
     public bool Active; // Determines if this planet is to be considered in the collisiton tests.
+	public bool full = false;
+	public int ID;
 
     public Vector3 Center { get { return gameObject.transform.position; } }
     public float BodyRadius { get; set; }
