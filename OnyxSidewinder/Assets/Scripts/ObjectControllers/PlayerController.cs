@@ -12,13 +12,14 @@ public class PlayerController : MonoBehaviour
     private PlanetController _orbit;
     private bool _alive;
     private Vector2 _velocity;
-    private float _gravity = 6.5f;
+    private float _gravity = 4f;
     private float _rotationAcceleration = 3.0f;
     private float _topSpeed = 18;
     private float _orbitStartSpeed;
     private float _orbitTime;
     private float _angleDirection;
     private float _orbitAccelerationTime = 3.0f;
+    private float _rotationVelocity;
     
     public GameObject PlayerObject;
     public GameObject Pivot;
@@ -27,6 +28,16 @@ public class PlayerController : MonoBehaviour
     public float Radius { get { return _radius; } set { _radius = value; } } // Distance between Pod and Planet.
     public Vector3 Position { get { return PlayerObject.transform.position; } } // Pod Position in World Space
     public bool Orbiting { get { return _orbiting; } }
+
+    public float Speed {
+        get
+        {
+            if (_orbiting)
+                return _rotationVelocity;
+            else
+                return _velocity.magnitude;
+        }
+    }
 
     public bool Initialize()
     {
@@ -56,8 +67,8 @@ public class PlayerController : MonoBehaviour
         _orbitTime += Time.deltaTime;
         float percentTime = _orbitTime / _orbitAccelerationTime;
         percentTime = (percentTime>1.0f)? 1.0f : percentTime;
-        float currentSpeed = _orbitStartSpeed + ((_topSpeed - _orbitStartSpeed) * percentTime);
-        _rotationSpeed = currentSpeed / _circumfrence * 360 * _angleDirection;
+        _rotationVelocity = _orbitStartSpeed + ((_topSpeed - _orbitStartSpeed) * percentTime);
+        _rotationSpeed = _rotationVelocity / _circumfrence * 360 * _angleDirection;
     }
     
     public void UpdatePosition()

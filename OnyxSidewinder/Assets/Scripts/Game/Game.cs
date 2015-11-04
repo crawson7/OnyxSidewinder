@@ -20,12 +20,13 @@ public class Game
     #endregion
 
     private PlayerController _player;
+    private PlanetController _activePlanet;
     private float _checkInterval;
     private float _checkFrequency = 0.1f;
     private List<PlanetController> _planets = new List<PlanetController>();
     private bool _active;
     private OnyxUIController _uicontrol;
-    private bool _playing;
+    private bool _playing = false;
 
     public GameObject GameObj;
     public GameObject DialogsObj;
@@ -33,6 +34,7 @@ public class Game
     public bool Touching;
 
     public PlayerController Player { get { return _player; } }
+    public PlanetController ActivePlanet {  get { return _activePlanet; } }
     public bool LevelActive {get{return _playing;}}
 
     public bool Initialize()
@@ -100,7 +102,7 @@ public class Game
         GameObject prefab = Resources.Load("Game/Player") as GameObject;
         GameObject player = GameObject.Instantiate<GameObject>(prefab);
         _player = player.GetComponent<PlayerController>();
-        _player.gameObject.transform.position = new Vector3(0, -8, 0);
+        _player.gameObject.transform.position = new Vector3(2, 0, 0);
         _player.gameObject.transform.SetParent(GameObj.transform, false);
         if (!_player.Initialize()) { Logger.Log("Player did not initialize propperly"); return false; }
         return true;
@@ -186,8 +188,14 @@ public class Game
             _planets[i].Active = true;
         }
         _player.Orbit(planet);
+        _activePlanet = planet;
 
-        _uicontrol.setMessageText(planet.Center.y.ToString("0"));
+        changeUIText(planet.Center.y.ToString("0"));
+    }
+
+    public void changeUIText(string s)
+    {
+        _uicontrol.setMessageText(s);
     }
 
 
