@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour {
     [HideInInspector] public Vector2 LastTouchPos;
     [HideInInspector] public bool Touching;
     [HideInInspector] public bool AltState;
+	[HideInInspector] public bool CtlState;
 
     public bool Initialize()
     {
@@ -96,14 +97,9 @@ public class InputManager : MonoBehaviour {
 
     private void CheckKeys()
     {
-        if(Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt))
-        {
-            AltState = true;
-        }
-        if(Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt))
-        {
-            AltState = false;
-        }
+		AltState = (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt));
+		CtlState = (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl));
+
         if(Input.GetKeyDown(KeyCode.A))
         {
             CameraManager.Instance.GameCam.gameObject.transform.position =
@@ -117,6 +113,30 @@ public class InputManager : MonoBehaviour {
         {
             CameraManager.Instance.GameCam.RemoveBehavior("PlayerCloseFollow");
         }
+		if (Input.GetKeyDown(KeyCode.Alpha0))
+		{
+			if(CtlState){Logger.LogLevel = 0;}
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			if(CtlState){Logger.LogLevel = 1;}
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			if(CtlState){Logger.LogLevel = 2;}
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			if(CtlState){Logger.LogLevel = 3;}
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			if(CtlState){Logger.LogLevel = 4;}
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha5))
+		{
+			if(CtlState){Logger.LogLevel = 5;}
+		}
     }
     #endregion
 
@@ -140,7 +160,7 @@ public class InputManager : MonoBehaviour {
     #region Platform Agnostic Inputs
     private void Touch(Vector2 pos)
     {
-        Logger.Log("Touch at: (" + pos.x + ", " + pos.y + ")");
+        Logger.Log("Touch at: (" + pos.x + ", " + pos.y + ")", 2);
         LastTouch = pos;
         Touching = true;
         Game.Instance.HandleTouch(pos);
@@ -148,14 +168,14 @@ public class InputManager : MonoBehaviour {
 
     private void Release(Vector2 pos)
     {
-        Logger.Log("Release at: (" + pos.x + ", " + pos.y + ")");
+        Logger.Log("Release at: (" + pos.x + ", " + pos.y + ")", 2);
         Touching = false;
         Game.Instance.HandleRelease(pos);
     }
 
     private void Drag(Vector2 delta, Vector2 total)
     {
-        Logger.Log("Dragging " + delta.x + ", " + delta.y + " - Total Drag: " + total.x + ", " + total.y);
+		Logger.Log("Dragging " + delta.x + ", " + delta.y + " - Total Drag: " + total.x + ", " + total.y, 0);
     }
     #endregion 
 }

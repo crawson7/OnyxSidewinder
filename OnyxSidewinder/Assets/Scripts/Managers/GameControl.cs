@@ -20,6 +20,7 @@ public class GameControl : MonoBehaviour {
     #endregion
 
     private bool GameInitialized = false;
+	public int LogLevel;
 
     // Use this for initialization
     void Start ()
@@ -54,13 +55,13 @@ public class GameControl : MonoBehaviour {
 
     private bool EarlyInitialize()
     {
-        if (Logger.Initialize())
-        { Logger.Log("Logger Initialization Successful."); }
+        if (Logger.Initialize(LogLevel))
+        { Logger.Log("Logger Initialization Successful.", 1); }
         else { Debug.LogError("Logger Initialization Failed"); return false; }
 
         if (InputManager.Instance.Initialize())
-        { Logger.Log("Input Manager Initialization Successful."); }
-        else { Logger.Log("Input Manager Initialization Failed"); return false; }
+        { Logger.Log("Input Manager Initialization Successful.", 1); }
+        else { Logger.Log("Input Manager Initialization Failed", 5); return false; }
 
         return true;
     }
@@ -73,8 +74,8 @@ public class GameControl : MonoBehaviour {
     private bool LateInitialize()
     {
         if (CameraManager.Instance.Initialize())
-        { Logger.Log("Camera Manager Initialization Successful."); }
-        else { Logger.Log("Camera Manager Initialization Failed"); return false; }
+        { Logger.Log("Camera Manager Initialization Successful.", 1); }
+        else { Logger.Log("Camera Manager Initialization Failed", 5); return false; }
         return true;    
     }
 
@@ -82,7 +83,7 @@ public class GameControl : MonoBehaviour {
     {
         if(!Game.Instance.Initialize())
         {
-            Logger.Log("Game System could not initialize");
+            Logger.Log("Game System could not initialize", 5);
             return;
         }
 

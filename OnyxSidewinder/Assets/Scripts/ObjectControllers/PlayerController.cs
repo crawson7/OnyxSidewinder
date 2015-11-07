@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
     private PlanetController _orbit;
     private bool _alive;
     private Vector2 _velocity;
-    private float _gravity = 4f;
+    private float _gravity = 3.5f;
     private float _rotationAcceleration = 3.0f;
-    private float _topSpeed = 18;
+    private float _topSpeed = 10;
     private float _orbitStartSpeed;
     private float _orbitTime;
     private float _angleDirection;
@@ -109,7 +109,12 @@ public class PlayerController : MonoBehaviour
 
     public void Orbit(PlanetController planet)
     {
-        Logger.Log("Orbit planet center at " + planet.Center);
+		if(planet.Center.y > Game.Instance.GoalHeight)
+		{
+			Game.Instance.HandleReachGoal();
+			return;
+		}
+        Logger.Log("Orbit planet center at " + planet.Center, 2);
         _orbit = planet;
         _orbit.Active = false;
         Orbit(planet.Center, false);

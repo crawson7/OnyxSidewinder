@@ -19,7 +19,7 @@ public class PlanetFollow : BaseCameraBehavior
         Vector3 pos = Game.Instance.ActivePlanet.Center;
         pos.z = -10;
         if (Game.Instance.Player.Orbiting)
-            _zoom.x = Game.Instance.Player.Speed*0.7f;
+            _zoom.x = Game.Instance.Player.Speed*1.25f;
         if (_zoom.x > _zoomMax.x)
             _zoom = _zoomMax;
         else if (_zoom.x < _zoomMin.x)
@@ -37,4 +37,5 @@ public class PlanetFollow : BaseCameraBehavior
         Name = name;
         return true;
     }
+
 }

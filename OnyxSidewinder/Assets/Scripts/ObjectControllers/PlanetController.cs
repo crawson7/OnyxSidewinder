@@ -9,8 +9,9 @@ public class PlanetController : MonoBehaviour {
 	public int ID;
 
     public Vector3 Center { get { return gameObject.transform.position; } }
-    public float BodyRadius { get; set; }
-    public float GravityRadius { get; set; }
+    public float BodyRadius { get; set; } // the distance from the center to the edge of the body mass of the planet.
+    public float GravityRadius { get; set; } // the distance from the center to the edge of the plants gravity field
+	public float GapRadius {get; set; } // The distance from the center to the jump gap edge, used for planet generation
 
 
     public void Initialize(float body, float gravity)
@@ -18,6 +19,7 @@ public class PlanetController : MonoBehaviour {
         Active = true;
         SetBodySize(body);
         SetGravitySize(gravity);
+        SetSprite();
     }
 
     // Update is called once per frame
@@ -38,25 +40,47 @@ public class PlanetController : MonoBehaviour {
 
     public void Reset()
     {
+		Active = true;
     }
     
+    private void SetSprite()
+    {
+        if(BodyRadius>1.25)
+        {
+            PlanetObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/big_guy");
+        }
+        else if(BodyRadius>0.75)
+        {
+            PlanetObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/flapper");
+        }
+        else
+        {
+            PlanetObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/lil_guy");
+        }
+    }
+
     public bool TestCollision()
     {
         Vector3 pos = Game.Instance.Player.Position;
         if (BodyCollision(pos))
         {
-            Logger.Log("Body Collide");
+            Logger.Log("Body Collide", 2);
             Game.Instance.HandlePlanetCollide(this);
             return true;
         }
         else if (GravityCollision(pos))
         {
-            Logger.Log("Gravity Collide");
+            Logger.Log("Gravity Collide", 2);
             Game.Instance.HandleGravityCollide(this);
             return true;
         }
         return false;
     }
+
+	public bool TestExit()
+	{
+		return !GravityCollision(Game.Instance.Player.Position);
+	}
 
     public bool BodyCollision(Vector3 pos)
     {

@@ -73,6 +73,10 @@
     <Compile Include="Assets\Scripts\Game\CameraBehaviors\PlayerCloseFollow.cs" />
     <Compile Include="Assets\Scripts\Game\CameraBehaviors\ZoomWithSpeed.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
+    <Compile Include="Assets\Scripts\Game\Level.cs" />
+    <Compile Include="Assets\Scripts\Game\LevelsData.cs" />
+    <Compile Include="Assets\Scripts\Game\PlanetManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\BaseType.cs" />
     <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameControl.cs" />
     <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
