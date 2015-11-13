@@ -373,15 +373,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11410270, guid: 547eea3f645f47b42ad5c5260bdd37b6, type: 2}
+    - target: {fileID: 11405694, guid: 547eea3f645f47b42ad5c5260bdd37b6, type: 2}
       propertyPath: Cameras
       value: 
       objectReference: {fileID: 217603662}
-    - target: {fileID: 11410270, guid: 547eea3f645f47b42ad5c5260bdd37b6, type: 2}
+    - target: {fileID: 11405694, guid: 547eea3f645f47b42ad5c5260bdd37b6, type: 2}
       propertyPath: Dialogs
       value: 
       objectReference: {fileID: 565035197}
-    - target: {fileID: 11410270, guid: 547eea3f645f47b42ad5c5260bdd37b6, type: 2}
+    - target: {fileID: 11405694, guid: 547eea3f645f47b42ad5c5260bdd37b6, type: 2}
       propertyPath: GameParent
       value: 
       objectReference: {fileID: 2110071291}
