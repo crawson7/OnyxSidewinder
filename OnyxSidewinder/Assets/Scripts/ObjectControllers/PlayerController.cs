@@ -85,6 +85,8 @@ public class PlayerController : MonoBehaviour
     {
         _alive = false;
         PlayerObject.SetActive(false);
+
+        Game.Instance.updateUIDistance("DEATH");
     }
 
     public void Reset(Vector3 pos)

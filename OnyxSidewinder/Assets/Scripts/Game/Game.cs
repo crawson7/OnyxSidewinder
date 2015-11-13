@@ -32,6 +32,10 @@ public class Game
     public GameObject DialogsObj;
 	private Bounds _bounds = new Bounds();
 	private Level _level;
+    private int _jumps = 0;
+    private bool _debugCameraEnabled = false;
+    private DebugPrefabController _debugCameraTargetController;
+    private DebugPrefabController _debugCameraPositionController;
 
 	// Tuning Variables
 	private float startHeight = 0;
@@ -51,6 +55,9 @@ public class Game
     public bool LevelActive {get{return _playing;}}
 	public Level CurrentLevel{get{return _level;}}
 	public float GoalHeight {get{return goalHeight;}}
+    public bool DebugCameraEnabled { get { return _debugCameraEnabled; } }
+    public DebugPrefabController CameraTarget { get { return _debugCameraTargetController; } }
+    public DebugPrefabController CameraPosition { get { return _debugCameraPositionController; } }
 
     public bool Initialize()
     {
@@ -61,6 +68,7 @@ public class Game
         if (!LoadPlayer()) { return false; }
         if (!LoadPlanets()) { return false; }
         if (!LoadUI()) { return false; }
+        if (!LoadDebugTools()) { return false; }
         Logger.Log("Game System Initialized.", 1);
 		LoadBoundries();
 		_active = true;
@@ -76,6 +84,7 @@ public class Game
             _planets[i].Reset();
         }
         _active = true;
+        _jumps = 0;
     }
     
     public void Update()
@@ -131,10 +140,37 @@ public class Game
 
     public bool LoadUI()
     {
-        GameObject prefab = Resources.Load("UI/OnyxUI") as GameObject;
-        GameObject onyxUI = GameObject.Instantiate<GameObject>(prefab);
-        _uicontrol = onyxUI.GetComponent<OnyxUIController>();
+        GameObject prefab = Resources.Load("UI/GameHUD") as GameObject;
+        GameObject GameHUD = GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity) as GameObject;
+        GameHUD.transform.SetParent(SceneManager.Instance.Dialogs.transform, false);
+        _uicontrol = GameHUD.GetComponent<OnyxUIController>();
         if(!_uicontrol.Initialize()) { Logger.Log("UI did not initialize properly", 5); return false; }
+
+        return true;
+    }
+
+    public bool LoadDebugTools()
+    {
+        if (Logger.LogLevel > 0) { _debugCameraEnabled = true; }
+
+        if(_debugCameraEnabled)
+        {
+            GameObject prefab = Resources.Load("Debug/DebugPrefab") as GameObject;
+            GameObject debugCameraTarget = GameObject.Instantiate<GameObject>(prefab);
+            _debugCameraTargetController = debugCameraTarget.GetComponent<DebugPrefabController>();
+            _debugCameraTargetController.gameObject.transform.position = Vector3.zero;
+            _debugCameraTargetController.gameObject.transform.SetParent(GameObj.transform, false); //this might be a "Debug" meta-class in the future.
+            _debugCameraTargetController.setSprite("CircleCross");
+            _debugCameraTargetController.setColor(Color.red);
+
+            GameObject prefab2 = Resources.Load("Debug/DebugPrefab") as GameObject;
+            GameObject debugCameraPosition = GameObject.Instantiate<GameObject>(prefab2);
+            _debugCameraPositionController = debugCameraPosition.GetComponent<DebugPrefabController>();
+            _debugCameraPositionController.gameObject.transform.position = Vector3.zero;
+            _debugCameraPositionController.gameObject.transform.SetParent(GameObj.transform, false); //this might be a "Debug" meta-class in the future.
+            _debugCameraPositionController.setSprite("CircleCross");
+            _debugCameraPositionController.setColor(Color.green);
+        }
 
         return true;
     }
@@ -147,7 +183,7 @@ public class Game
         _player = player.GetComponent<PlayerController>();
         _player.gameObject.transform.position = new Vector3(2, 0, 0);
         _player.gameObject.transform.SetParent(GameObj.transform, false);
-        if (!_player.Initialize()) { Logger.Log("Player did not initialize propperly", 5); return false; }
+        if (!_player.Initialize()) { Logger.Log("Player did not initialize properly", 5); return false; }
         return true;
     }
 
@@ -482,7 +518,7 @@ public class Game
     {
         _player.Kill();
         End(false);
-        _uicontrol.setMessageText("yer dead!");
+        //UI Death Message
     }
 
     public void HandleGravityCollide(PlanetController planet)
@@ -493,13 +529,20 @@ public class Game
         }
         _player.Orbit(planet);
         _activePlanet = planet;
+        _jumps++;
 
-        changeUIText(planet.Center.y.ToString("0"));
+        updateUIJumps(_jumps.ToString());
+        updateUIDistance(planet.Center.y.ToString("0"));
     }
 
-    public void changeUIText(string s)
+    public void updateUIJumps(string s)
     {
-        _uicontrol.setMessageText(s);
+        _uicontrol.setJumpsText("Jumps: " + s);
+    }
+
+    public void updateUIDistance(string s)
+    {
+        _uicontrol.setDistanceText("Distance: " + s + "/50");
     }
 
 	public void HandleLostInSpace()
