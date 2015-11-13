@@ -1,2 +1,4 @@
 OnyxSidewinder/Temp/
 OnyxSidewinder/Library/
+gitignore
+*.csproj
