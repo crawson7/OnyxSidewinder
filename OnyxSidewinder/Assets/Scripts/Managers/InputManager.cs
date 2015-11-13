@@ -49,7 +49,7 @@ public class InputManager : MonoBehaviour {
     {
     }
 	
-	public void Update ()
+	private void Update ()
     {
         if(_editor)
         {
@@ -115,27 +115,63 @@ public class InputManager : MonoBehaviour {
         }
 		if (Input.GetKeyDown(KeyCode.Alpha0))
 		{
-			if(CtlState){Logger.LogLevel = 0;}
+			if(AltState){Logger.LogLevel = 0;}
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			if(CtlState){Logger.LogLevel = 1;}
+			if(AltState){Logger.LogLevel = 1;}
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
-			if(CtlState){Logger.LogLevel = 2;}
+			if(AltState){Logger.LogLevel = 2;}
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 		{
-			if(CtlState){Logger.LogLevel = 3;}
+			if(AltState){Logger.LogLevel = 3;}
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha4))
 		{
-			if(CtlState){Logger.LogLevel = 4;}
+			if(AltState){Logger.LogLevel = 4;}
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha5))
 		{
-			if(CtlState){Logger.LogLevel = 5;}
+			if(AltState){Logger.LogLevel = 5;}
+		}
+		if(Input.GetKeyDown(KeyCode.L))
+		{
+			if(AltState)
+			{
+				Logger.Log("Loading Scene Test"); 
+				SceneManager.Instance.LoadScene("Test", ()=> { Logger.Log("Scene Load On Complete Callback", 1); });
+			}
+		}
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (AltState)
+            {
+                Logger.Log("Unloading Scene Test");
+                SceneManager.Instance.UnloadScene("Test");
+            }
+        }
+		if(Input.GetKeyDown(KeyCode.D))
+		{
+			if (AltState)
+			{
+				Logger.Log("Test Loading Level Data");
+				LevelData ld;
+				DataManager.Load<LevelData>(out ld);
+				Logger.Log("Loaded Data is " + ld.ID, 1);
+			}
+		}
+		if(Input.GetKeyDown(KeyCode.S))
+		{
+			if (AltState)
+			{
+				Logger.Log("Test Saving Level Data");
+				LevelData ld = new LevelData();
+				ld.ID = 10;
+				DataManager.Save<LevelData>(ld);
+			}
 		}
     }
     #endregion

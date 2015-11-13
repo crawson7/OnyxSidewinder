@@ -39,7 +39,6 @@ public class Game
 	private float levelWidth = 24;
 	private float minJumpDist = 0.75f;
 	private float maxJumpDist = 2.0f;
-	private float minGapAngle = 90.0f;
 	private float minBodySize = 0.3f;
 	private float maxBodySize = 1.5f;
 	private float minGravityDepth = 1.5f;
@@ -96,7 +95,9 @@ public class Game
 
 	public void LoadLevel(int id)
 	{
-		// load new Level;
+		// Find the level in LevelsData
+        // Start a new Level
+        // Initialize the level with Data.
 	}
 
 	private bool CheckLostInSpace()
@@ -196,8 +197,8 @@ public class Game
     private void Branch(PlanetController pc)
     {
 		PlanetData newPlanet = CalculateNewPlanetData();
-		//float newPlanetRadius = UnityEngine.Random.Range(2.0f, 3.5f);
-		//Logger.Log("New Planet Radius is " + newPlanetRadius);
+		// float newPlanetRadius = UnityEngine.Random.Range(2.0f, 3.5f);
+		// Logger.Log("New Planet Radius is " + newPlanetRadius);
 
 		// Find What other planets are in range
 		List<PlanetController> closePlanets = new List<PlanetController>();
@@ -205,7 +206,7 @@ public class Game
 		for(int i=0; i<_planets.Count; i++)
 		{
 			if(_planets[i] == pc){continue;} // Planet is this planet.
-			if(_planets[i].Center.y + _planets[i].GravityRadius < pc.Center.y - pc.GravityRadius){continue;}// Planet is too far below this one.
+			if(_planets[i].Center.y + _planets[i].GravityRadius < pc.Center.y - pc.GravityRadius){continue;} // Planet is too far below this one.
 
             if(_planets[i].Center.x < pc.Center.x)
             {

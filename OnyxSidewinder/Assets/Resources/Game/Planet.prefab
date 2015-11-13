@@ -128,6 +128,8 @@ MonoBehaviour:
   PlanetObject: {fileID: 121462}
   GravityObject: {fileID: 163778}
   Active: 1
+  full: 0
+  ID: 0
 --- !u!212 &21226204
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -153,7 +155,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fecc86429c9b94f4aac1f70f795d25bc, type: 3}
-  m_Color: {r: .661764741, g: .291955024, b: .291955024, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21250728
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -179,7 +181,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5ec55fc97233829448b51b4db084cd99, type: 3}
-  m_Color: {r: .21366784, g: .764705896, b: .49108699, a: .184}
+  m_Color: {r: 1, g: .92079109, b: .477941155, a: .392156869}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnyxSidewinder.CSharp", "OnyxSidewinder.CSharp.csproj", "{AF35DCFA-8331-A023-AC55-885258795FAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnyxSidewinder.CSharp.Editor", "OnyxSidewinder.CSharp.Editor.csproj", "{C83EDECB-017E-3241-0293-CD6C75A78DC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{AF35DCFA-8331-A023-AC55-885258795FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF35DCFA-8331-A023-AC55-885258795FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF35DCFA-8331-A023-AC55-885258795FAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C83EDECB-017E-3241-0293-CD6C75A78DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C83EDECB-017E-3241-0293-CD6C75A78DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C83EDECB-017E-3241-0293-CD6C75A78DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C83EDECB-017E-3241-0293-CD6C75A78DC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

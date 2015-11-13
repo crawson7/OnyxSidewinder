@@ -14,7 +14,8 @@ public class LevelsData
 public class LevelData
 {
 	public int ID;
-	public PlanetsData Planets;
+
+    public PlanetsData Planets;
 	public LevelData(){}
 }
 
@@ -23,4 +24,27 @@ public class PlanetsData
 {
 	public int ID;
 	public PlanetsData(){}
+}
+
+[System.Serializable]
+public class ScenesData
+{
+    public List<SceneData> Scenes;
+    public ScenesData() { }
+}
+
+[System.Serializable]
+public class SceneData
+{
+    public string Name;
+    public int Id;
+    public SceneType Type;
+    public SceneData() { }
+}
+
+public enum SceneType
+{
+    Level,
+    UI,
+    Main
 }

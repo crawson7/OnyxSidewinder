@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AF35DCFA-8331-A023-AC55-885258795FAA}</ProjectGuid>
+    <ProjectGuid>{C83EDECB-017E-3241-0293-CD6C75A78DC2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>iOS:9</UnityBuildTarget>
     <UnityVersion>5.2.1f1</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -51,14 +51,59 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\UnityAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WP8.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WP8.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Metro.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Metro.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Tizen.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Tizen.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SamsungTV.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.SamsungTV.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WebGL.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.OSXStandalone.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
@@ -71,33 +116,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Pixelplacement\iTween.cs" />
-    <Compile Include="Assets\Scripts\Game\CameraBehaviors\PlanetFollow.cs" />
-    <Compile Include="Assets\Scripts\Game\CameraBehaviors\PlayerCloseFollow.cs" />
-    <Compile Include="Assets\Scripts\Game\CameraBehaviors\ZoomWithSpeed.cs" />
-    <Compile Include="Assets\Scripts\Game\Game.cs" />
-    <Compile Include="Assets\Scripts\Game\Level.cs" />
-    <Compile Include="Assets\Scripts\Game\LevelBoundsIndicator.cs" />
-    <Compile Include="Assets\Scripts\Game\LevelSettingsEditor.cs" />
-    <Compile Include="Assets\Scripts\Game\LevelsData.cs" />
-    <Compile Include="Assets\Scripts\Game\PlanetManager.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\BaseType.cs" />
-    <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\GameControl.cs" />
-    <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\Logger.cs" />
-    <Compile Include="Assets\Scripts\Managers\OnyxUIController.cs" />
-    <Compile Include="Assets\Scripts\Managers\ResourceManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\SceneManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\StateMachine.cs" />
-    <Compile Include="Assets\Scripts\ObjectControllers\BaseCameraBehavior.cs" />
-    <Compile Include="Assets\Scripts\ObjectControllers\CameraController.cs" />
-    <Compile Include="Assets\Scripts\ObjectControllers\OnyxUIController.cs" />
-    <Compile Include="Assets\Scripts\ObjectControllers\PlanetController.cs" />
-    <Compile Include="Assets\Scripts\ObjectControllers\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\ObjectControllers\SceneController.cs" />
-    <Compile Include="Assets\Scripts\Utilities.cs" />
+    <ProjectReference Include="OnyxSidewinder.CSharp.csproj">
+      <Project>{AF35DCFA-8331-A023-AC55-885258795FAA}</Project>
+      <Name>OnyxSidewinder.CSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\Editor\CreateLevelMenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

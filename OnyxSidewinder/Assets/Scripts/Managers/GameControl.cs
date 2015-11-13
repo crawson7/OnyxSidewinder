@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
 
@@ -21,6 +21,7 @@ public class GameControl : MonoBehaviour {
 
     private bool GameInitialized = false;
 	public int LogLevel;
+    private List<StateMachine> _stateMachines = new List<StateMachine>();
 
     // Use this for initialization
     void Start ()
@@ -38,7 +39,6 @@ public class GameControl : MonoBehaviour {
 	void Update () {
 	    if(GameInitialized)
         {
-            InputManager.Instance.Update();
             Game.Instance.Update();
         }
 	}
@@ -63,11 +63,17 @@ public class GameControl : MonoBehaviour {
         { Logger.Log("Input Manager Initialization Successful.", 1); }
         else { Logger.Log("Input Manager Initialization Failed", 5); return false; }
 
+        if (SceneManager.Instance.Initialize())
+        { Logger.Log("Scene Manager Initialization Successful.", 1); }
+        else { Logger.Log("Scene Manager Initialization Failed", 5); return false; }
+
+		DataManager.Initialize();
         return true;
     }
 
     private bool LoadData()
     {
+        SceneManager.Instance.LoadSceneData();
         return true;
     }
 
@@ -100,4 +106,26 @@ public class GameControl : MonoBehaviour {
             Debug.LogError(s);
         }
     }
+
+    public void RegisterStateMachine(StateMachine sm)
+    {
+        // First make sure that this State Machine doe not already exist.
+        for(int i=0; i<_stateMachines.Count; i++)
+        {
+            if(_stateMachines[i] == sm) { return; }
+        }
+        _stateMachines.Add(sm);
+    }
+
+    public void RemoveStateMachine(StateMachine sm)
+    {
+        for (int i = 0; i < _stateMachines.Count; i++)
+        {
+            if (_stateMachines[i] == sm) { _stateMachines.RemoveAt(i); return; }
+        }
+    }
+
+
+
+
 }
