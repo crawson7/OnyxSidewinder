@@ -13,6 +13,7 @@ public class PlanetFollow : BaseCameraBehavior
     private Vector2 _currentZoom;
     private Vector3 target;
     private Vector3 cameraPos;
+    private FloatRingBuffer cameraZoomBuffer = new FloatRingBuffer(3);
 
     public override void Evaluate()
     {
@@ -20,6 +21,7 @@ public class PlanetFollow : BaseCameraBehavior
 
         Vector3 planetPos = Game.Instance.ActivePlanet.Center;
         Vector3 playerPos = Game.Instance.Player.Position;
+
 
         planetPos.z = -10;
         playerPos.z = -10;
@@ -30,8 +32,12 @@ public class PlanetFollow : BaseCameraBehavior
         else if (_zoom.x < _zoomMin.x)
             _zoom = _zoomMin;
 
-        _currentZoom.x = CameraManager.Instance.GameCam.Cam.orthographicSize;
-        CameraManager.Instance.GameCam.Cam.orthographicSize = iTween.Vector2Update(_currentZoom, _zoom, 1).x;
+        cameraZoomBuffer.addValue(CameraManager.Instance.GameCam.Cam.orthographicSize);
+        //GetAverage() is called every frame, and its very expensive. We only need to call it when the player collides with gravity,
+        //because there's a speed change thats bizzarre and the ringbuffer smooths it out. Can we detect that and only use GetAverage()
+        //when we need it?
+        _currentZoom.x = cameraZoomBuffer.GetAverage(); 
+        CameraManager.Instance.GameCam.Cam.orthographicSize =  iTween.Vector2Update(_currentZoom, _zoom, 1).x;
 
         //CameraManager.Instance.GameCam.Cam.orthographicSize = Game.Instance.Player.Speed;
         
