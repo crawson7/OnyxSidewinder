@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public static class Utilities
@@ -120,5 +120,36 @@ public static class Utilities
 			if (dist == radiusA + radiusB) return 1;
 			return 2;
 		}
+	}
+    
+	public static T ParseEnum<T>(string s, bool safe=true)
+	{
+		if (safe) {
+			try {
+				T val = (T)System.Enum.Parse (typeof(T), s, true);
+				return val;
+			} catch {
+				return (T)GetDefaultEnum<T> ();
+			}
+		} else {
+			T val = (T)System.Enum.Parse (typeof(T), s, true);
+			return val;
+		}
+	}
+
+	public static T GetRandomEnum<T>()
+	{
+		System.Array A = System.Enum.GetValues(typeof(T));
+		T V = (T)A.GetValue(UnityEngine.Random.Range(0,A.Length));
+		return V;
+	}
+
+	public static T GetNextEnum<T>(int prev)
+	{
+		System.Array A = System.Enum.GetValues(typeof(T));
+		int prevIndex = (int)prev;
+		int nextIndex = ((prevIndex+1)<A.Length)? prevIndex+1 : 0;
+		T value = (T)A.GetValue(nextIndex);
+		return value;
 	}
 }
