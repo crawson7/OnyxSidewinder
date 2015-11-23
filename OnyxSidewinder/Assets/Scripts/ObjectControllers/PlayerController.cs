@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (!_alive || !Game.Instance.LevelActive) { return; }
+        if (!_alive || Game.Instance.CurrentLevel.State != LevelState.Playing) { return; }
 
         if (_orbiting)
         {
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         _alive = false;
         PlayerObject.SetActive(false);
 
-        Game.Instance.updateUIDistance("DEATH");
+        Game.Instance.CurrentLevel.updateUIDistance("DEATH");
     }
 
     public void Reset(Vector3 pos)
@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
 		}
         Logger.Log("Orbit planet center at " + planet.Center, 2);
         _orbit = planet;
-        _orbit.Active = false;
         Orbit(planet.Center, false);
     }
 

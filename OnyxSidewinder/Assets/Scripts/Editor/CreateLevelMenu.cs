@@ -51,10 +51,42 @@ public class CreateLevelMenu : MonoBehaviour
     [MenuItem("Sidewinder/Save Level")]
     static void SaveLevel()
     {
+        // Find the Scene controller if not already attached.
+        if (_sceneControl == null)
+        {
+            SceneController sc = null;
+            object[] obj = GameObject.FindObjectsOfType(typeof(GameObject));
+            foreach (object o in obj)
+            {
+                GameObject g = (GameObject)o;
+                sc = g.GetComponent<SceneController>();
+                if (sc == null) { continue; }
+                break;
+            }
+            if (sc == null) { Debug.LogError("Could Not Save this scene. There is no scene controller."); return; }
+            _sceneControl = sc;
+        }
+
         Debug.Log("Saving the Level");
         EditorApplication.SaveScene("Assets/Scenes/Levels/" + _sceneControl.Name + ".unity");
 
         // TODO: Update Levels JSON file.
+
+        // Add the Scene to the build Settings
+        EditorBuildSettingsScene[] original = EditorBuildSettings.scenes;
+        for(int i=0; i<original.Length; i++)
+        {
+            if(original[i].path == "Assets/Scenes/Levels/" + _sceneControl.Name + ".unity")
+            {
+                Debug.Log("This Scene has already been added to the build settings.");
+                return;
+            }
+        }
+        EditorBuildSettingsScene[] newSettings = new EditorBuildSettingsScene[original.Length + 1];
+        System.Array.Copy(original, newSettings, original.Length);
+        EditorBuildSettingsScene sceneToAdd = new EditorBuildSettingsScene("Assets/Scenes/Levels/" + _sceneControl.Name + ".unity", true);
+        newSettings[newSettings.Length - 1] = sceneToAdd;
+        EditorBuildSettings.scenes = newSettings;
     }
 }
 

@@ -7,3 +7,9 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
+  - enabled: 1
+    path: Assets/Scenes/Landing.unity
+  - enabled: 1
+    path: Assets/Scenes/Levels/Test.unity
+  - enabled: 1
+    path: Assets/Scenes/Levels/Test02.unity

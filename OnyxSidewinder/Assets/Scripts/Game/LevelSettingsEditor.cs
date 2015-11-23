@@ -21,8 +21,8 @@ public class LevelSettingsEditor : MonoBehaviour
 
     // Player Settings
 
-    private GameObject _levelBounds;
-    private GameObject _player;
+    public GameObject _levelBounds;
+    public GameObject _player;
 
     public Rect Bounds
     {
@@ -48,7 +48,8 @@ public class LevelSettingsEditor : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 	
 	}
 

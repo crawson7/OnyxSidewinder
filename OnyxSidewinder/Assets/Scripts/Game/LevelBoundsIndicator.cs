@@ -19,7 +19,12 @@ public class LevelBoundsIndicator : MonoBehaviour
 
     public void Initialize()
     {
-        _line = gameObject.AddComponent<LineRenderer>();
+        _line = gameObject.GetComponent<LineRenderer>();
+        if (_line == null)
+        {
+            _line = gameObject.AddComponent<LineRenderer>();
+        }
+
         _line.material = new Material(Shader.Find("Particles/Additive"));
         _line.SetColors(_startColor, _endColor);
         _line.SetWidth(0.1F, 0.1F);

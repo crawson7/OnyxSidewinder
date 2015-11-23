@@ -17,9 +17,9 @@ public class PlanetFollow : BaseCameraBehavior
 
     public override void Evaluate()
     {
-        if(Game.Instance.ActivePlanet == null) { return; }
+        if (Game.Instance.Player == null) { return; }
 
-        Vector3 planetPos = Game.Instance.ActivePlanet.Center;
+        Vector3 planetPos = (Game.Instance.ActivePlanet==null)? Vector3.zero : Game.Instance.ActivePlanet.Center;
         Vector3 playerPos = Game.Instance.Player.Position;
 
 
@@ -52,14 +52,14 @@ public class PlanetFollow : BaseCameraBehavior
         }
         CameraManager.Instance.GameCam.Obj.position = iTween.Vector3Update(CameraManager.Instance.GameCam.Obj.position, target, 0.5f);
 
-        if(Game.Instance.DebugCameraEnabled)
+        if(Game.Instance.CurrentLevel != null && Game.Instance.CurrentLevel.DebugCameraEnabled)
         {
             target.z = -2;
-            Game.Instance.CameraTarget.transform.position = target;
+            Game.Instance.CurrentLevel.CameraTarget.transform.position = target;
 
             cameraPos = CameraManager.Instance.GameCam.Obj.position;
             cameraPos.z = -3;
-            Game.Instance.CameraPosition.transform.position = cameraPos;
+            Game.Instance.CurrentLevel.CameraPosition.transform.position = cameraPos;
 
         }
     }

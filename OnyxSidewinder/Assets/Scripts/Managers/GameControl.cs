@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
@@ -12,7 +12,9 @@ public class GameControl : MonoBehaviour {
         {
             if (_instance == null)
             {
-                _instance = GameObject.Find("Main").GetComponent<GameControl>();
+                GameObject main = GameObject.Find("Main");
+                if(main == null) { return null; }
+                _instance = main.GetComponent<GameControl>();
             }
             return _instance;
         }
@@ -21,6 +23,7 @@ public class GameControl : MonoBehaviour {
 
     private bool GameInitialized = false;
 	public int LogLevel;
+    public string StartScene;
     private List<StateMachine> _stateMachines = new List<StateMachine>();
 
     // Use this for initialization
@@ -92,9 +95,15 @@ public class GameControl : MonoBehaviour {
             Logger.Log("Game System could not initialize", 5);
             return;
         }
-
+        
+        if(!Game.Instance.LoadSaveData())
+        {
+            Logger.Log("Game Could not load Save Data.", 5);
+            return;
+        }
+        
         GameInitialized = true;
-        Game.Instance.Start();
+        Game.Instance.Start(StartScene);
     }
 
     private void StartUpError(string s)

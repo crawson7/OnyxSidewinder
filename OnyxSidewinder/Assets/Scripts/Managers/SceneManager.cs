@@ -14,7 +14,7 @@ public class SceneManager : MonoBehaviour
 		{
 			if (_instance == null)
 			{
-				_instance = GameObject.Find("Main").GetComponent<SceneManager>();
+                _instance = GameObject.Find("Main").GetComponent<SceneManager>();
 			}
 			return _instance;
 		}
@@ -109,12 +109,24 @@ public class SceneManager : MonoBehaviour
         s1.Type = SceneType.Main;
 
         SceneData s2 = new SceneData();
-        s2.Name = "Test";
+        s2.Name = "Landing";
         s2.Id = 1;
-        s2.Type = SceneType.Level;
+        s2.Type = SceneType.UI;
+
+        SceneData s3 = new SceneData();
+        s3.Name = "Test";
+        s3.Id = 2;
+        s3.Type = SceneType.Level;
+
+        SceneData s4 = new SceneData();
+        s3.Name = "Test02";
+        s3.Id = 3;
+        s3.Type = SceneType.Level;
 
         _scenes.Add(s1);
         _scenes.Add(s2);
+        _scenes.Add(s3);
+        _scenes.Add(s4);
         return true;
     }
 
@@ -144,6 +156,7 @@ public class SceneManager : MonoBehaviour
 
     public void RegisterScene(SceneController scene)
     {
+        Logger.Log("Registering Scene: " + scene.Name);
         _registeredScenes.Add(scene);
     }
 
@@ -161,11 +174,12 @@ public class SceneManager : MonoBehaviour
         }
 	}
 
-	public void LoadScene(string name, Action onComplete=null)
+	public bool LoadScene(string name, Action onComplete=null)
 	{
-        if (!IsValidScene(name)) { Logger.Log("Scene " + name + " is not a valid Scene. Load Failed.", 3);  return; }
+        if (!IsValidScene(name)) { Logger.Log("Scene " + name + " is not a valid Scene. Load Failed.", 3);  return false; }
         
         _loadRequests.Enqueue(new LoadRequest(name, onComplete));
+        return true;
     }
 
 	public void UnloadScene(string name, Action onComplete=null)
@@ -181,10 +195,15 @@ public class SceneManager : MonoBehaviour
 
 	public void UnloadAllScenes(Action onComplete=null)
 	{
+        List<string> toUnload = new List<string>();
 		foreach(string s in _activeScenes.Keys)
+        {toUnload.Add(s);}
+
+        for(int i=0; i<toUnload.Count; i++)
         {
-            UnloadScene(s);
+            UnloadScene(toUnload[i]);
         }
+        _activeScenes.Clear();
 	}
 
 	public IEnumerator LoadSceneAsync(LoadRequest load)

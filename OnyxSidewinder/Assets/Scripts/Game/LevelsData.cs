@@ -14,6 +14,7 @@ public class LevelsData
 public class LevelData
 {
 	public int ID;
+    public string SceneName; 
 
     public PlanetsData Planets;
 	public LevelData(){}
