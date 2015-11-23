@@ -152,4 +152,10 @@ public static class Utilities
 		T value = (T)A.GetValue(nextIndex);
 		return value;
 	}
+
+	public static T GetDefaultEnum<T>()
+	{
+		T[] vals = (T[]) System.Enum.GetValues(typeof(T));
+		return vals[0];
+	}
 }

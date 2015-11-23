@@ -124,7 +124,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 633967026}
+  - {fileID: 1353703537}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -139,15 +139,15 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -10, y: .300000012, z: 0}
-  - {x: -10, y: 49.7000008, z: 0}
-  - {x: -9.69999981, y: 50, z: 0}
-  - {x: 9.69999981, y: 50, z: 0}
-  - {x: 10, y: 49.7000008, z: 0}
-  - {x: 10, y: .300000012, z: 0}
-  - {x: 9.69999981, y: 0, z: 0}
-  - {x: -9.69999981, y: 0, z: 0}
-  - {x: -10, y: .300000012, z: 0}
+  - {x: -12.5, y: .300000012, z: 0}
+  - {x: -12.5, y: 49.7000008, z: 0}
+  - {x: -12.1999998, y: 50, z: 0}
+  - {x: 12.1999998, y: 50, z: 0}
+  - {x: 12.5, y: 49.7000008, z: 0}
+  - {x: 12.5, y: .300000012, z: 0}
+  - {x: 12.1999998, y: 0, z: 0}
+  - {x: -12.1999998, y: 0, z: 0}
+  - {x: -12.5, y: .300000012, z: 0}
   m_Parameters:
     startWidth: .100000001
     endWidth: .100000001
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6690358bb6932ff4f8823205cbf32d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 20
+  Width: 25
   Height: 50
 --- !u!1 &427939286
 GameObject:
@@ -220,9 +220,9 @@ MonoBehaviour:
   RotationAcceleration: 3
   EquilibriumSpeed: 10
   OrbitAccelerationTime: 3
-  _levelBounds: {fileID: 164360312}
-  _player: {fileID: 1885622058}
---- !u!21 &633967026
+  LevelBounds: {fileID: 164360312}
+  Player: {fileID: 1885622058}
+--- !u!21 &1353703537
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0

@@ -44,8 +44,12 @@ public class SceneController : MonoBehaviour
 
     private void InitializeAsLevel()
     {
-        // TODO: Destroy the Settings Editor and all the Editor Objects.
         Game.Instance.CurrentLevel.SetLevelSettings(LevelSettings);
+
+		// Destroy the Settings Editor and all the Editor Objects.
+		Object.Destroy(LevelSettings.LevelBounds);
+		Object.Destroy(LevelSettings.Player);
+		Object.Destroy(LevelSettings.gameObject);
     }
 
     private void InitializeAsMenu()

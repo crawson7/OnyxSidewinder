@@ -21,14 +21,14 @@ public class LevelSettingsEditor : MonoBehaviour
 
     // Player Settings
 
-    public GameObject _levelBounds;
-    public GameObject _player;
+    public GameObject LevelBounds;
+    public GameObject Player;
 
     public Rect Bounds
     {
         get
         {
-            LevelBoundsIndicator bounds = _levelBounds.GetComponent<LevelBoundsIndicator>();
+            LevelBoundsIndicator bounds = LevelBounds.GetComponent<LevelBoundsIndicator>();
             return new Rect(0, bounds.Height * 0.5f, bounds.Width, bounds.Height);
         }
     }
@@ -37,7 +37,7 @@ public class LevelSettingsEditor : MonoBehaviour
     {
         get
         {
-            return _player.transform.position;
+            return Player.transform.position;
         }
     }
 
@@ -55,7 +55,7 @@ public class LevelSettingsEditor : MonoBehaviour
 
     public void Initialize(GameObject bounds, GameObject player)
     {
-        _levelBounds = bounds;
-        _player = player;
+        LevelBounds = bounds;
+        Player = player;
     }
 }
