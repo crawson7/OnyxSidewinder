@@ -50,8 +50,9 @@ public class Game
         GameObj = GameObject.Find("Game");
         DialogsObj = GameObject.Find("Dialogs");
         if(GameObj == null || DialogsObj == null) { Logger.Log("Could not find parent objects", 5); return false; }
-        
-        // TODO: Load Levels Data from Data Manager.
+
+        LoadLevelData();
+        LoadSaveData();
         return true;
     }
 
@@ -83,6 +84,11 @@ public class Game
         return true;
     }
     
+    public void LoadLevelData()
+    {
+        //TODO: Load Level Data.
+    }
+
     public void Start(string startSceneName)
     {
         SceneManager.Instance.LoadScene(startSceneName, () => 

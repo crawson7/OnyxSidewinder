@@ -36,12 +36,13 @@ public class CreateLevelMenu : MonoBehaviour
         startPosition_GO.transform.SetParent(sceneControl_GO.transform, false);
         SpriteRenderer startSR = startPosition_GO.AddComponent<SpriteRenderer>();
         Sprite s = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Sprites/PlayerRef.png") as Sprite;
-        if (s != null) {
+        if (s != null)
+        {
             startSR.sprite = s;
             startSR.sortingOrder = 10;
         }
         else { Debug.LogError("Sprite for Player Not Found."); }
-        
+
         // TODO: Load Environment Prefab from Resources.
 
         settings.Initialize(levelBounds_GO, startPosition_GO);
@@ -73,20 +74,42 @@ public class CreateLevelMenu : MonoBehaviour
         // TODO: Update Levels JSON file.
 
         // Add the Scene to the build Settings
+        string newPath = "Assets/Scenes/Levels/" + _sceneControl.Name + ".unity";
         EditorBuildSettingsScene[] original = EditorBuildSettings.scenes;
-        for(int i=0; i<original.Length; i++)
+        ScenesData data = new ScenesData();
+
+        // Make sure that the new scene does not already exist.
+
+        for (int i = 0; i < original.Length; i++)
         {
-            if(original[i].path == "Assets/Scenes/Levels/" + _sceneControl.Name + ".unity")
+            data.Scenes.Add(new SceneData(original[i].path, i));
+            if (original[i].path == newPath)
             {
                 Debug.Log("This Scene has already been added to the build settings.");
                 return;
             }
         }
+        data.Scenes.Add(new SceneData(newPath, original.Length));
+        DataManager.SaveToResources(data);
         EditorBuildSettingsScene[] newSettings = new EditorBuildSettingsScene[original.Length + 1];
         System.Array.Copy(original, newSettings, original.Length);
-        EditorBuildSettingsScene sceneToAdd = new EditorBuildSettingsScene("Assets/Scenes/Levels/" + _sceneControl.Name + ".unity", true);
+        EditorBuildSettingsScene sceneToAdd = new EditorBuildSettingsScene(newPath, true);
         newSettings[newSettings.Length - 1] = sceneToAdd;
         EditorBuildSettings.scenes = newSettings;
+    }
+
+    [MenuItem("Sidewinder/UpdateScenesData")]
+    static void UpdateScenesData()
+    {
+        EditorBuildSettingsScene[] original = EditorBuildSettings.scenes;
+        ScenesData data = new ScenesData();
+        for (int i = 0; i < original.Length; i++)
+        {
+            Debug.Log("[" + i + "] Found Scene: " + original[i].path);
+            data.Scenes.Add(new SceneData(original[i].path, i));
+        }
+        DataManager.SaveToResources<ScenesData>(data);
+        Debug.Log("Update Complete");
     }
 }
 

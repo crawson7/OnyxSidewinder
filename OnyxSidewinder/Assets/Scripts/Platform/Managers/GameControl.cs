@@ -77,6 +77,7 @@ public class GameControl : MonoBehaviour {
     private bool LoadData()
     {
         SceneManager.Instance.LoadSceneData();
+
         return true;
     }
 

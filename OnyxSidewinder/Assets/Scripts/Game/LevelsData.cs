@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class LevelsData
 {
 	public List<LevelData> Levels;
-	public LevelsData(){}
+	public LevelsData(){ Levels = new List<LevelData>(); }
 }
 
 
@@ -14,6 +14,8 @@ public class LevelsData
 public class LevelData
 {
 	public int ID;
+    public int Area;
+    public int Order;
     public string SceneName; 
 
     public PlanetsData Planets;
@@ -31,16 +33,42 @@ public class PlanetsData
 public class ScenesData
 {
     public List<SceneData> Scenes;
-    public ScenesData() { }
+    public ScenesData() { Scenes = new List<SceneData>(); }
 }
 
 [System.Serializable]
 public class SceneData
 {
+    public string Path;
     public string Name;
     public int Id;
-    public SceneType Type;
     public SceneData() { }
+    public SceneData(string name, int id)
+    {
+        Path = name;
+        Id = id;
+        Name = ParseName(name);
+    }
+
+    private string ParseName(string s)
+    {
+        // Remove ".unity"
+        int length = s.Length;
+        int typeIndex = s.IndexOf(".unity");
+        if(typeIndex>0)
+        {
+            s = s.Substring(0, typeIndex);
+        }
+
+        // Remove Path Prefix
+        int lastSlash = s.LastIndexOf("/");
+        if(lastSlash>0)
+        {
+            s = s.Substring(lastSlash+1, s.Length - lastSlash - 1);
+        }
+
+        return s;
+    }
 }
 
 public enum SceneType

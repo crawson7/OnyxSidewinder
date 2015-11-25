@@ -26,7 +26,7 @@ public class SceneManager : MonoBehaviour
 	private LoadRequest _activeLoad;
     private Dictionary<string, SceneController> _activeScenes = new Dictionary<string, SceneController>();
     private List<SceneController> _registeredScenes = new List<SceneController>();
-    private List<SceneData> _scenes = new List<SceneData>();
+    private List<SceneData> _scenes = new List<SceneData>(); // All possible Scenes included in the build.
 
 	public bool Initialize()
 	{
@@ -103,31 +103,11 @@ public class SceneManager : MonoBehaviour
 
     public bool LoadSceneData()
     {
-        SceneData s1 = new SceneData();
-        s1.Name = "StartScene";
-        s1.Id = 0;
-        s1.Type = SceneType.Main;
+        ScenesData data = new ScenesData();
+        DataManager.Load(out data);
+        _scenes = data.Scenes;
 
-        SceneData s2 = new SceneData();
-        s2.Name = "Landing";
-        s2.Id = 1;
-        s2.Type = SceneType.UI;
-
-        SceneData s3 = new SceneData();
-        s3.Name = "Test";
-        s3.Id = 2;
-        s3.Type = SceneType.Level;
-
-        SceneData s4 = new SceneData();
-        s3.Name = "Test02";
-        s3.Id = 3;
-        s3.Type = SceneType.Level;
-
-        _scenes.Add(s1);
-        _scenes.Add(s2);
-        _scenes.Add(s3);
-        _scenes.Add(s4);
-        return true;
+        return _scenes.Count>0;
     }
 
     private void ActivateScene(LoadRequest load)
@@ -225,10 +205,7 @@ public class SceneManager : MonoBehaviour
         {
             if(_scenes[i].Name == name)
             {
-                if(_scenes[i].Type== SceneType.Level || _scenes[i].Type == SceneType.UI)
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;

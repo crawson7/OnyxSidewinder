@@ -92,6 +92,7 @@ public static class DataManager
 		if(!IsSerializable(parameterType)){return false;}
 
 		string filePath = Application.dataPath + "/Resources/Data/" + parameterType.ToString() + ".txt";
+        Debug.Log("Saving File to: " + filePath);
 		string dataString = JsonWriter.Serialize(data);
 		StreamWriter writer = new StreamWriter(filePath);
 		writer.Write(dataString);
