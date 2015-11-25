@@ -35,6 +35,7 @@ public class Game
 	private Level _level;
     private int _jumps = 0;
     private GameState _state;
+	private LevelsData _levels;
 
 	// Public Menbers
     public bool Touching;
@@ -87,6 +88,11 @@ public class Game
     public void LoadLevelData()
     {
         //TODO: Load Level Data.
+		//Temp Fix build Level Data here.
+		_levels = new LevelsData();
+		_levels.Levels.Add(new LevelData(1000, 0, 0, "Test02"));
+		_levels.Levels.Add(new LevelData(1001, 0, 1, "Level_01"));
+		_levels.Levels.Add(new LevelData(1002, 0, 2, "Level_03"));
     }
 
     public void Start(string startSceneName)
@@ -97,22 +103,32 @@ public class Game
         });
     }
     
-    public void LoadLevel(int guid)
+    public void LoadLevelByOrder(int area, int order)
 	{
-		// TODO: Find the level in LevelsData
-        // Temproary Fix: Just load this Level...
-        LevelData data = new LevelData();
-        data.ID = 3;
-        data.SceneName = "Test02";
+		for(int i=0; i<_levels.Levels.Count; i++)
+		{
+			if(_levels.Levels[i].Area == area && _levels.Levels[i].Order == order)
+			{
+				LoadLevel(_levels.Levels[i]);
+			}
+		}
+		Logger.Log("Requested Level " + area + ":" + order + " Not Found", 4);
+	}
 
-        //Unload Active Scenes.
-        SceneManager.Instance.UnloadAllScenes();
+	public void LoadLevelById(int guid)
+	{
+		// TODO: look up level by GUID
+	}
 
-        // Start a new Level
-        _level = new Level();
-        if(!CurrentLevel.Load(data))
-        { Logger.Log("Level " + data.ID + " Failed to Load.", 5); }
-        _state = GameState.Active;
+	public void LoadLevel(LevelData level)
+	{
+		//Unload Active Scenes.
+		SceneManager.Instance.UnloadAllScenes();
+
+		_level = new Level();
+		if(!CurrentLevel.Load(level))
+		{ Logger.Log("Level " + level.ID + " Failed to Load.", 5); }
+		_state = GameState.Active;
 	}
 
 	private bool CheckLostInSpace()

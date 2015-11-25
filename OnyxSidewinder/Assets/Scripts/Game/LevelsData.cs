@@ -20,6 +20,13 @@ public class LevelData
 
     public PlanetsData Planets;
 	public LevelData(){}
+	public LevelData(int ID, int area, int order, string scene)
+	{
+		ID = ID;
+		Area = area;
+		Order = order;
+		SceneName = scene;
+	}
 }
 
 [System.Serializable]

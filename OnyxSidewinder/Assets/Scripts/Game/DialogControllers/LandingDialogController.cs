@@ -13,8 +13,8 @@ public class LandingDialogController : MonoBehaviour {
 	
 	}
 
-    public void Play()
+    public void Play(int level)
     {
-        Game.Instance.LoadLevel(4);
+        Game.Instance.LoadLevelByOrder(0, level);
     }
 }

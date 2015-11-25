@@ -46,36 +46,38 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Pixelplacement\iTween.cs" />
-     <Compile Include="Assets\Scripts\FloatRingBuffer.cs" />
      <Compile Include="Assets\Scripts\Game\CameraBehaviors\PlanetFollow.cs" />
      <Compile Include="Assets\Scripts\Game\CameraBehaviors\PlayerCloseFollow.cs" />
      <Compile Include="Assets\Scripts\Game\CameraBehaviors\ZoomWithSpeed.cs" />
      <Compile Include="Assets\Scripts\Game\DialogControllers\LandingDialogController.cs" />
      <Compile Include="Assets\Scripts\Game\Game.cs" />
+     <Compile Include="Assets\Scripts\Game\Global.cs" />
      <Compile Include="Assets\Scripts\Game\Level.cs" />
      <Compile Include="Assets\Scripts\Game\LevelBoundsIndicator.cs" />
      <Compile Include="Assets\Scripts\Game\LevelSettingsEditor.cs" />
      <Compile Include="Assets\Scripts\Game\LevelsData.cs" />
+     <Compile Include="Assets\Scripts\Game\Managers\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\Game\Managers\OnyxUIController.cs" />
+     <Compile Include="Assets\Scripts\Game\Managers\ResourceManager.cs" />
+     <Compile Include="Assets\Scripts\Game\ObjectControllers\BaseCameraBehavior.cs" />
+     <Compile Include="Assets\Scripts\Game\ObjectControllers\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Game\ObjectControllers\DebugPrefabController.cs" />
+     <Compile Include="Assets\Scripts\Game\ObjectControllers\PlanetController.cs" />
+     <Compile Include="Assets\Scripts\Game\ObjectControllers\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Game\ObjectControllers\SceneController.cs" />
      <Compile Include="Assets\Scripts\Game\PlanetManager.cs" />
      <Compile Include="Assets\Scripts\Game\SceneBuilder.cs" />
-     <Compile Include="Assets\Scripts\Interfaces\BaseType.cs" />
-     <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\GameControl.cs" />
-     <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\Logger.cs" />
-     <Compile Include="Assets\Scripts\Managers\OnyxUIController.cs" />
-     <Compile Include="Assets\Scripts\Managers\ResourceManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\SceneManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\StateMachine.cs" />
-     <Compile Include="Assets\Scripts\ObjectControllers\BaseCameraBehavior.cs" />
-     <Compile Include="Assets\Scripts\ObjectControllers\CameraController.cs" />
-     <Compile Include="Assets\Scripts\ObjectControllers\DebugPrefabController.cs" />
-     <Compile Include="Assets\Scripts\ObjectControllers\PlanetController.cs" />
-     <Compile Include="Assets\Scripts\ObjectControllers\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\ObjectControllers\SceneController.cs" />
-     <Compile Include="Assets\Scripts\RingBuffer.cs" />
-     <Compile Include="Assets\Scripts\Utilities.cs" />
+     <Compile Include="Assets\Scripts\Platform\Interfaces\BaseType.cs" />
+     <Compile Include="Assets\Scripts\Platform\Managers\DataManager.cs" />
+     <Compile Include="Assets\Scripts\Platform\Managers\GameControl.cs" />
+     <Compile Include="Assets\Scripts\Platform\Managers\InputManager.cs" />
+     <Compile Include="Assets\Scripts\Platform\Managers\SceneManager.cs" />
+     <Compile Include="Assets\Scripts\Platform\Utilities\FloatRingBuffer.cs" />
+     <Compile Include="Assets\Scripts\Platform\Utilities\Logger.cs" />
+     <Compile Include="Assets\Scripts\Platform\Utilities\RingBuffer.cs" />
+     <Compile Include="Assets\Scripts\Platform\Utilities\StateMachine.cs" />
+     <Compile Include="Assets\Scripts\Platform\Utilities\Utilities.cs" />
+     <None Include="Assets\Resources\Data\ScenesData.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -83,7 +85,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="JsonFx.Json">
- <HintPath>/Volumes/ChrisHD/Misc./Personal/OnyxSidewinder/OnyxSidewinder/Assets/Plugins/JsonFX/Debug/JsonFx.Json.dll</HintPath>
+ <HintPath>/Users/chris.rawson/Documents/Personal/Projects/OnyxSidewinder/OnyxSidewinder/Assets/Plugins/JsonFX/Debug/JsonFx.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
