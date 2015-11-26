@@ -1,0 +1,5 @@
+{"Levels":[
+{"ID":1000,"Area":0,"Order":0, "SceneName":"Test02"},
+{"ID":1001,"Area":0,"Order":1, "SceneName":"Level_01"},
+{"ID":1002,"Area":0,"Order":2, "SceneName":"Level_03"}
+]}

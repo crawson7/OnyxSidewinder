@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Game\CameraBehaviors\ZoomWithSpeed.cs" />
     <Compile Include="Assets\Scripts\Game\DialogControllers\LandingDialogController.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
+    <Compile Include="Assets\Scripts\Game\Global.cs" />
     <Compile Include="Assets\Scripts\Game\Level.cs" />
     <Compile Include="Assets\Scripts\Game\LevelBoundsIndicator.cs" />
     <Compile Include="Assets\Scripts\Game\LevelSettingsEditor.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Assets\Scripts\Platform\Managers\GameControl.cs" />
     <Compile Include="Assets\Scripts\Platform\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\Platform\Managers\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\Platform\Utilities\Easing.cs" />
     <Compile Include="Assets\Scripts\Platform\Utilities\FloatRingBuffer.cs" />
     <Compile Include="Assets\Scripts\Platform\Utilities\Logger.cs" />
     <Compile Include="Assets\Scripts\Platform\Utilities\RingBuffer.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Assets\Scripts\Platform\Utilities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Resources\Data\LevelsData.txt" />
     <None Include="Assets\Resources\Data\ScenesData.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

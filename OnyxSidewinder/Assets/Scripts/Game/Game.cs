@@ -87,12 +87,8 @@ public class Game
     
     public void LoadLevelData()
     {
-        //TODO: Load Level Data.
-		//Temp Fix build Level Data here.
 		_levels = new LevelsData();
-		_levels.Levels.Add(new LevelData(1000, 0, 0, "Test02"));
-		_levels.Levels.Add(new LevelData(1001, 0, 1, "Level_01"));
-		_levels.Levels.Add(new LevelData(1002, 0, 2, "Level_03"));
+        DataManager.Load(out _levels);
     }
 
     public void Start(string startSceneName)
@@ -110,6 +106,7 @@ public class Game
 			if(_levels.Levels[i].Area == area && _levels.Levels[i].Order == order)
 			{
 				LoadLevel(_levels.Levels[i]);
+                return;
 			}
 		}
 		Logger.Log("Requested Level " + area + ":" + order + " Not Found", 4);
@@ -161,24 +158,24 @@ public class Game
             CurrentLevel.Start();
             _player.SetSpeed(12.0f);
         }
-        else if (CurrentLevel.State == LevelState.Playing)
+        else if (CurrentLevel.State == LevelState.Playing && _player.Orbiting)
+        {
+            _player.Charge();
+        }
+    }
+
+    public void HandleRelease(Vector2 pos)
+    {
+        if (CurrentLevel.State == LevelState.Playing)
         {
             if (_player.Orbiting)
             {
                 ActivePlanet.Active = false;
                 _player.Release();
             }
-            else
-            {
-                _player.SetSpeed(12.0f);
-            }
         }
     }
 
-    public void HandleRelease(Vector2 pos)
-    {
-        // Do nothing for now.
-    }
 
     public void HandlePlanetCollide(PlanetController planet)
     {

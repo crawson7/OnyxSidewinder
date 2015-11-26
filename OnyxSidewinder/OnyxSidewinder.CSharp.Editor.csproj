@@ -125,6 +125,7 @@
     <Compile Include="Assets\Scripts\Editor\CreateLevelMenu.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Resources\Data\LevelsData.txt" />
     <None Include="Assets\Resources\Data\ScenesData.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

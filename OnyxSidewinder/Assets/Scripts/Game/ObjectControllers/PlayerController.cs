@@ -4,23 +4,28 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
-    private float _forwardSpeed; // Unity Units per second
-    private float _rotationSpeed; // Euler Degrees per second
-    private bool _orbiting;
+    private float _forwardSpeed;                    // Unity Units per second
+    private float _rotationSpeed;                   // Euler Degrees of rotation per second
+    private bool _orbiting;                         // If the player is currently orbiting a planet
+    private bool _charging = false;
     private float _radius;
     private float _circumfrence;
     private PlanetController _orbit;
     private bool _alive;
     private Vector2 _velocity;
-    private float _gravity = 3.5f;
-    private float _rotationAcceleration = 3.0f;
-    private float _topSpeed = 10;
-    private float _orbitStartSpeed;
-    private float _orbitTime;
-    private float _angleDirection;
-    private float _orbitAccelerationTime = 3.0f;
-    private float _rotationVelocity;
-    
+    private float _gravity = 8f;
+    private float _defaultSpeed = 5f;               // The players speed will adjust to match this orbit speed over time.
+    private float _topSpeed = 15f;                  // The maximum orbit speed that the player will reach while holding down.
+    private float _orbitStartSpeed;                 // The speed the player was going when he entered orbit.
+    private float _orbitTime;                       // The amount of time the player has been in orbit on the active planet.
+    private float _angleDirection;                  // The direction of rotation around the planet. >0 = Clockwise, <0 = Counter Clockwise
+    private float _orbitAccelerationTime = 2.5f;    // The amount of time it takes for the players speed to reach the default speed.
+    private float _chargeAccelerationTime = 3.5f;   // The amount of time it takes for the players speed to reach the top speed while charging up.
+    private float _orbitForwardVelocity;            // The current forward speed of the players orbit.
+    private Easing.Function _orbitEasing;           // The easing function to use for adjusting the players rotation speed in orbit.
+    private Easing.Function _chargeEasing;          // The easing function to use for speeding the players orbit up while charging.
+    private float _boostAmount = 6f;             // The amount of release boost as a percentage of Forward Velocity
+
     public GameObject PlayerObject;
     public GameObject Pivot;
 
@@ -33,7 +38,7 @@ public class PlayerController : MonoBehaviour
         get
         {
             if (_orbiting)
-                return _rotationVelocity;
+                return _orbitForwardVelocity;
             else
                 return _velocity.magnitude;
         }
@@ -43,6 +48,8 @@ public class PlayerController : MonoBehaviour
     {
         _orbiting = false;
         _alive = true;
+        _orbitEasing = Easing.EaseFunction(EaseType.EaseInOutSine);
+        _chargeEasing = Easing.EaseFunction(EaseType.Linear);
         return true;
     }
 	
@@ -63,14 +70,36 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateOrbit()
     {
-        Pivot.transform.Rotate(new Vector3(0, 0, _rotationSpeed * Time.deltaTime)); 
+        // Continue orbitin player
+        Pivot.transform.Rotate(new Vector3(0, 0, _rotationSpeed * Time.deltaTime));
+
+        // Adjust rotation Speed based on orbit time
         _orbitTime += Time.deltaTime;
-        float percentTime = _orbitTime / _orbitAccelerationTime;
-        percentTime = (percentTime>1.0f)? 1.0f : percentTime;
-        _rotationVelocity = _orbitStartSpeed + ((_topSpeed - _orbitStartSpeed) * percentTime);
-        _rotationSpeed = _rotationVelocity / _circumfrence * 360 * _angleDirection;
+        _orbitForwardVelocity = (_charging)? _topSpeed : _defaultSpeed;
+        if (_orbitTime < _orbitAccelerationTime)
+        {
+            float percentTime = _orbitTime / _orbitAccelerationTime;
+            if(_charging)
+            {
+                float distance =  _topSpeed - _orbitStartSpeed;
+                _orbitForwardVelocity = _chargeEasing(_orbitStartSpeed, distance, _orbitTime, _chargeAccelerationTime);
+            }
+            else
+            {
+                float distance = _defaultSpeed - _orbitStartSpeed;
+                _orbitForwardVelocity = _orbitEasing(_orbitStartSpeed, distance, _orbitTime, _orbitAccelerationTime);
+            }
+        }
+        _rotationSpeed = _orbitForwardVelocity / _circumfrence * 360 * _angleDirection;
     }
     
+    public void Charge()
+    {
+        _orbitTime = 0;
+        _charging = true;
+        _orbitStartSpeed = _orbitForwardVelocity;
+    }
+
     public void UpdatePosition()
     {
         Vector2 position = PlayerObject.transform.position;
@@ -145,8 +174,10 @@ public class PlayerController : MonoBehaviour
 
     public void Release()
     {
-        SetSpeed(_circumfrence * (_rotationSpeed * 0.00278f));
+        float speedBoost = _boostAmount * _angleDirection;
+        SetSpeed(_circumfrence * (_rotationSpeed * 0.00278f) + speedBoost);
         _orbiting = false;
+        _charging = false;
     }
 
     private void SetPivot(Vector3 pos, bool preserveLocation)

@@ -71,8 +71,6 @@ public class CreateLevelMenu : MonoBehaviour
         Debug.Log("Saving the Level");
         EditorApplication.SaveScene("Assets/Scenes/Levels/" + _sceneControl.Name + ".unity");
 
-        // TODO: Update Levels JSON file.
-
         // Add the Scene to the build Settings
         string newPath = "Assets/Scenes/Levels/" + _sceneControl.Name + ".unity";
         EditorBuildSettingsScene[] original = EditorBuildSettings.scenes;
