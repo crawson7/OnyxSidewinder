@@ -23,7 +23,6 @@ public class InputManager : MonoBehaviour {
     private bool _ios = false;
     private bool _android = false;
 
-    [HideInInspector] public Vector2 LastTouch;
     [HideInInspector] public Vector2 LastTouchPos;
     [HideInInspector] public bool Touching;
     [HideInInspector] public bool AltState;
@@ -81,6 +80,10 @@ public class InputManager : MonoBehaviour {
         if(Input.GetMouseButtonUp(0) && Touching)
         {
             Release(pos);
+        }
+        if(Input.GetMouseButton(0) && Touching)
+        {
+            Drag(delta, pos);
         }
 
         // Right button controls
@@ -189,6 +192,10 @@ public class InputManager : MonoBehaviour {
             {
                 Release(Input.GetTouch(0).position);
             }
+            if(Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                Drag(Input.GetTouch(0).deltaPosition, Input.GetTouch(0).position);
+            }
         }
     }
     #endregion
@@ -197,7 +204,7 @@ public class InputManager : MonoBehaviour {
     private void Touch(Vector2 pos)
     {
         Logger.Log("Touch at: (" + pos.x + ", " + pos.y + ")", 2);
-        LastTouch = pos;
+        LastTouchPos = pos;
         Touching = true;
         Game.Instance.HandleTouch(pos);
     }
@@ -209,9 +216,11 @@ public class InputManager : MonoBehaviour {
         Game.Instance.HandleRelease(pos);
     }
 
-    private void Drag(Vector2 delta, Vector2 total)
+    private void Drag(Vector2 delta, Vector2 pos)
     {
-		Logger.Log("Dragging " + delta.x + ", " + delta.y + " - Total Drag: " + total.x + ", " + total.y, 0);
+        LastTouchPos = pos;
+        Game.Instance.HandleDrag(delta, pos);
+		Logger.Log("Dragging " + delta.x + ", " + delta.y + " - Total Drag: " + pos.x + ", " + pos.y, 0);
     }
     #endregion 
 }

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private PlanetController _orbit;
     private bool _alive;
     private Vector2 _velocity;
-    private float _gravity = 8f;
+    private float _gravity = 8.25f;
     private float _defaultSpeed = 5f;               // The players speed will adjust to match this orbit speed over time.
     private float _topSpeed = 15f;                  // The maximum orbit speed that the player will reach while holding down.
     private float _orbitStartSpeed;                 // The speed the player was going when he entered orbit.
@@ -24,10 +24,11 @@ public class PlayerController : MonoBehaviour
     private float _orbitForwardVelocity;            // The current forward speed of the players orbit.
     private Easing.Function _orbitEasing;           // The easing function to use for adjusting the players rotation speed in orbit.
     private Easing.Function _chargeEasing;          // The easing function to use for speeding the players orbit up while charging.
-    private float _boostAmount = 6f;             // The amount of release boost as a percentage of Forward Velocity
+    private float _boostAmount = 6f;                // The amount of release boost as a percentage of Forward Velocity
 
     public GameObject PlayerObject;
     public GameObject Pivot;
+    public GameObject ForwardIndicator;
 
     public Vector3 Forward { get { return new Vector3(0,1,0); } }
     public float Radius { get { return _radius; } set { _radius = value; } } // Distance between Pod and Planet.
@@ -48,8 +49,9 @@ public class PlayerController : MonoBehaviour
     {
         _orbiting = false;
         _alive = true;
-        _orbitEasing = Easing.EaseFunction(EaseType.EaseInOutSine);
+        _orbitEasing = Easing.EaseFunction(EaseType.EaseInSine);
         _chargeEasing = Easing.EaseFunction(EaseType.Linear);
+        ForwardIndicator.SetActive(false);
         return true;
     }
 	
@@ -57,18 +59,19 @@ public class PlayerController : MonoBehaviour
 	void Update ()
     {
         if (!_alive || Game.Instance.CurrentLevel.State != LevelState.Playing) { return; }
+        float deltaTime = Time.deltaTime;
 
         if (_orbiting)
         {
-            UpdateOrbit();
+            UpdateOrbit(deltaTime);
         }
         else
         {
-            UpdatePosition();
+            UpdatePosition(deltaTime);
         }
 	}
 
-    public void UpdateOrbit()
+    public void UpdateOrbit(float time)
     {
         // Continue orbitin player
         Pivot.transform.Rotate(new Vector3(0, 0, _rotationSpeed * Time.deltaTime));
@@ -100,16 +103,30 @@ public class PlayerController : MonoBehaviour
         _orbitStartSpeed = _orbitForwardVelocity;
     }
 
-    public void UpdatePosition()
+    public void UpdatePosition(float time)
     {
         Vector2 position = PlayerObject.transform.position;
-        //PlayerObject.transform.LookAt(position + _velocity, new Vector3(0,0,-1));
-        position += (_velocity * Time.deltaTime) + (Time.deltaTime * new Vector2(0, -_gravity) * 0.5f);
-        _velocity += new Vector2(0, Time.deltaTime * -_gravity);
-        PlayerObject.transform.position = position;
+        Vector2 newPos, newVel;
+        CalculatePositionUpdate(time, PlayerObject.transform.position, _velocity, out newPos, out newVel);
+
+        PlayerObject.transform.position = newPos;
+        _velocity = newVel;
         PlayerObject.transform.LookAt(position + _velocity, new Vector3(0, 0, -1));
+
+        // Old Calculation
+        //Vector2 position = PlayerObject.transform.position;
+        //position += (_velocity * time) + (time * new Vector2(0, -_gravity) * 0.5f);
+        //_velocity += new Vector2(0, time * -_gravity);
+        //PlayerObject.transform.position = position;
+        //PlayerObject.transform.LookAt(position + _velocity, new Vector3(0, 0, -1));
     }
     
+    private void CalculatePositionUpdate(float deltaTime, Vector2 pos, Vector2 vel, out Vector2 newPos, out Vector2 newVel)
+    {
+        newPos = pos + (vel * deltaTime) + (deltaTime * new Vector2(0, -_gravity) * 0.5f);
+        newVel = vel + new Vector2(0, deltaTime * -_gravity);
+    }
+
     public void Kill()
     {
         _alive = false;
@@ -136,6 +153,11 @@ public class PlayerController : MonoBehaviour
     {
         _forwardSpeed = Mathf.Abs(s);
         _velocity = PlayerObject.transform.forward * _forwardSpeed;
+    }
+
+    public void ChangeRotation(float degrees)
+    {
+        Pivot.transform.Rotate(new Vector3(0, 0, degrees));
     }
 
     public void Orbit(PlanetController planet)
@@ -188,5 +210,26 @@ public class PlayerController : MonoBehaviour
         PlayerObject.transform.position = childOrigin;
     }
 
+    public void ShowForwardVector()
+    {
+        ForwardIndicator.SetActive(true);
+        LineRenderer lr = ForwardIndicator.GetComponent<LineRenderer>();
+        lr.SetVertexCount(10);
+        Vector2 pos = PlayerObject.transform.position;
+        Vector2 vel = PlayerObject.transform.forward * 14.0f;
+        float timeIncrement = 0.015f;
+        for (int i=0; i<10; i++)
+        {
+            Vector2 newPos, newVel;
+            CalculatePositionUpdate(timeIncrement * i, pos, vel, out newPos, out newVel);
+            lr.SetPosition(i, newPos);
+            vel = newVel;
+            pos = newPos;
+        }
+    }
 
+    public void HideForwardVector()
+    {
+        ForwardIndicator.SetActive(false);
+    }
 }

@@ -153,12 +153,7 @@ public class Game
     {
         if(_state != GameState.Active) { return; }
 
-        if (CurrentLevel.State == LevelState.Stopped)
-        {
-            CurrentLevel.Start();
-            _player.SetSpeed(12.0f);
-        }
-        else if (CurrentLevel.State == LevelState.Playing && _player.Orbiting)
+        if (CurrentLevel.State == LevelState.Playing && _player.Orbiting)
         {
             _player.Charge();
         }
@@ -166,7 +161,13 @@ public class Game
 
     public void HandleRelease(Vector2 pos)
     {
-        if (CurrentLevel.State == LevelState.Playing)
+        if (CurrentLevel.State == LevelState.Stopped)
+        {
+            CurrentLevel.Start();
+            _player.SetSpeed(14.0f);
+            Player.HideForwardVector();
+        }
+        else if (CurrentLevel.State == LevelState.Playing)
         {
             if (_player.Orbiting)
             {
@@ -176,6 +177,15 @@ public class Game
         }
     }
 
+    public void HandleDrag(Vector2 delta, Vector2 pos)
+    {
+        if(CurrentLevel !=null && CurrentLevel.State == LevelState.Stopped)
+        {
+            float rotation = delta.x * 0.5f;
+            Player.ChangeRotation(rotation);
+            Player.ShowForwardVector();
+        }
+    }
 
     public void HandlePlanetCollide(PlanetController planet)
     {

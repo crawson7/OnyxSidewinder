@@ -85,7 +85,7 @@ public class Level
         BuildLevel();
         Game.Instance.LoadPlayer(_startPosition);
         LoadUI();
-        LoadDebugTools();
+        //LoadDebugTools();
         State = LevelState.Stopped;
     }
 
