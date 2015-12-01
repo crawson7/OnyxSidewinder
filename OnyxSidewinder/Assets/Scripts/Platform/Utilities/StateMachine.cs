@@ -11,7 +11,7 @@ public class StateMachine
 	private State _currentState = null;
 	private string nextState = "";
     private bool _active;
-    private Dictionary<string, State> stateList = new Dictionary<string, State>();
+    private Dictionary<string, State> _stateList = new Dictionary<string, State>();
     
 	public string CurrentState{get{return (_currentState!=null)? _currentState.Name : "";}}
 	public string LastState{get{return _lastState;}}
@@ -30,30 +30,30 @@ public class StateMachine
 
 	public State AddState(string state)
 	{
-		if(state == "" || stateList.ContainsKey(state))
+		if(state == "" || _stateList.ContainsKey(state))
 		{	
             Logger.Log("Error creating State " + state + ": must have a unique name.", 2); 
             return null;
         } 
 
 		State newState = new State(state);
-		stateList.Add(_name, newState);		
+		_stateList.Add(_name, newState);		
 		return newState;        
 	}
 	
     public void RemoveState(string state)
     {
-        if(stateList.ContainsKey(state))
+        if(_stateList.ContainsKey(state))
         {
-            stateList.Remove(state);
+            _stateList.Remove(state);
         }
     }
     
 	public State GetState(string state)
 	{
-        if(stateList.ContainsKey(state))
+        if(_stateList.ContainsKey(state))
         {
-		  return stateList[state];
+		  return _stateList[state];
         }
         return null;
 	}
@@ -73,6 +73,11 @@ public class StateMachine
         }
 	}
     
+    public bool IsValid(string state)
+    {
+        return _stateList.ContainsKey(state);
+    }
+
     public void Stop()
     {
         if(_active && _currentState != null && _currentState.OnExit != null)
@@ -126,7 +131,7 @@ public class StateMachine
             return false;
         }
 
-        if(!stateList.ContainsKey(nextState))
+        if(!_stateList.ContainsKey(nextState))
 		{
             Logger.Log("The State " + nextState + " does not exist.");
 			return false;
@@ -151,7 +156,7 @@ public class StateMachine
 			_lastState = _currentState.Name;
 		}
 
-		_currentState = stateList[nextState];
+		_currentState = _stateList[nextState];
 		nextState = "";
 		Logger.Log(_name + " - Entering State: " + _currentState.Name, 0);
 		

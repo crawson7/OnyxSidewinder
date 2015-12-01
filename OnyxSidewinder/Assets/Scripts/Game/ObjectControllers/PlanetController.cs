@@ -14,7 +14,7 @@ public class PlanetController : MonoBehaviour {
 	public float GapRadius {get; set; } // The distance from the center to the jump gap edge, used for planet generation
 
 
-    public void Initialize(float body, float gravity)
+    public void Initialize(float body, float gravity, PlanetType type)
     {
         Active = true;
         SetBodySize(body);

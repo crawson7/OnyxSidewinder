@@ -283,17 +283,35 @@ public class SceneBuilder
 
     private PlanetController PlacePlanet(float body, float gravity, Vector3 pos, List<PlanetController> planets)
     {
+        PlanetType type = GetPlanetType(body);
+
         GameObject prefab = Resources.Load("Game/Planet") as GameObject;
 
         GameObject planet5 = GameObject.Instantiate<GameObject>(prefab);
         if (planet5 == null) { return null; }
         PlanetController pc5 = planet5.GetComponent<PlanetController>();
-        pc5.Initialize(body, gravity);
+        pc5.Initialize(body, gravity, type);
         planets.Add(pc5);
         pc5 = planet5.GetComponent<PlanetController>();
         pc5.gameObject.transform.position = pos;
         pc5.gameObject.transform.SetParent(SceneManager.Instance.GameParent.transform, false);
         pc5.ID = planets.Count;
         return pc5;
+    }
+
+    private PlanetType GetPlanetType(float bodyRadius)
+    {
+        if (bodyRadius > 1.25)
+        {
+            return PlanetType.Chomper;
+        }
+        else if (bodyRadius > 0.75)
+        {
+            return PlanetType.Bouncer;
+        }
+        else
+        {
+            return PlanetType.Popper;
+        }
     }
 }
