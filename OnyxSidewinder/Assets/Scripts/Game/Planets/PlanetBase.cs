@@ -13,21 +13,22 @@ public enum PlanetType
     Attractor
 }
 
+[ExecuteInEditMode]
 public class PlanetBase : MonoBehaviour
 {
     #region Private Members
-    protected PlanetType _type;
-    protected float _bodyRadius;
-    protected float _gravityRadius;
-    protected float _gapRadius;
+    private PlanetType _type;
+    private float _bodyRadius;
+    private float _gravityDepth;
+    protected float _gapDepth;
     protected bool _active;
     protected StateMachine _states;
+    protected GameObject _planetObject;
+    protected GameObject _gravityObject;
     #endregion
 
     #region Public Variables and Properties
-    public GameObject PlanetObject;
-    public GameObject GravityObject;
-
+    // Properties
     public bool Active { get { return _active; } }
     public PlanetType Type { get { return _type; } set { _type = value; SetType(_type); } }
     public string pState { get { return _states.CurrentState; } set { if (_states.IsValid(value)){ _states.SetTo(value); } } }
@@ -40,20 +41,20 @@ public class PlanetBase : MonoBehaviour
         set
         {
             _bodyRadius = value;
-            PlanetObject.transform.localScale = Vector3.one * value * 2.0f;
+            SetScale();
         }
     }
 
-    public float GravityRadius
+    public float GravityDepth
     {
         get
         {
-            return _gravityRadius;
+            return _gravityDepth;
         }
         set
         {
-            _gravityRadius = value;
-            GravityObject.transform.localScale = Vector3.one * value * 2.0f;
+            _gravityDepth = value;
+            SetScale();
         }
     }
     #endregion
@@ -63,7 +64,7 @@ public class PlanetBase : MonoBehaviour
         _active = true;
         Type = type;
         BodyRadius = body;
-        GravityRadius = gravity;
+        GravityDepth = gravity;
     }
 
     public virtual void Reset()
@@ -73,9 +74,15 @@ public class PlanetBase : MonoBehaviour
 
     public virtual void SetType(PlanetType type)
     {
+        //sr.sprite = Resources.Load<Sprite>("Sprites/" + data.Sprite);
         // Modify the behavior and skin to match the type
         // Set the Sprite to match.
         // Reset the animations and state
+    }
+
+    public virtual void SetScale()
+    {
+
     }
 
     public virtual void HandleBodyCollide()

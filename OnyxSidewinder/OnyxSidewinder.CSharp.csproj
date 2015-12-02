@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Game\Planets\PlanetBase.cs" />
     <Compile Include="Assets\Scripts\Game\Planets\PlanetBouncer.cs" />
     <Compile Include="Assets\Scripts\Game\Planets\PlanetChomper.cs" />
+    <Compile Include="Assets\Scripts\Game\Planets\PlanetEditor.cs" />
     <Compile Include="Assets\Scripts\Game\Planets\PlanetPopper.cs" />
     <Compile Include="Assets\Scripts\Game\SceneBuilder.cs" />
     <Compile Include="Assets\Scripts\Platform\Interfaces\BaseType.cs" />

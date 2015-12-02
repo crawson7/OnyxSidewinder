@@ -244,11 +244,14 @@ public class Circle
 	}
 }
 
+
 [System.Serializable]
 public class PlanetData
 {
+    // Contains data for the placement of Planet instances in a scene. 
 	public Vector2 Pos;
 	public float Gap, Gravity, Body;
+    public PlanetType Type;
 
 	public PlanetData() {}
 
@@ -259,4 +262,21 @@ public class PlanetData
 		Body = body;
 		Pos = Vector2.zero;
 	}
+}
+
+[System.Serializable]
+public class PlanetTypeData
+{
+    // Contains data to aid in the construction of each type of planet.
+    public PlanetType Type;
+    public string Sprite;
+    public string Spine;
+
+    public PlanetTypeData() { }
+
+    public PlanetTypeData(PlanetType type, string sprite)
+    {
+        Type = type;
+        Sprite = sprite;
+    }
 }

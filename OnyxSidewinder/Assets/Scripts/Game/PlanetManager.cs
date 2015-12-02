@@ -14,8 +14,7 @@ public class PlanetManager
     private float _maxBodySize;
     private float _minGravityDepth;
     private float _maxGravityDepth;
-
-
+    private List<PlanetBase> _newPlanets = new List<PlanetBase>();
 
 	public bool Initialize(LevelSettingsEditor settings)
 	{
@@ -27,8 +26,14 @@ public class PlanetManager
         _maxBodySize = settings.MaxBodySize;
         _minGravityDepth = settings.MinGravityDepth;
         _maxGravityDepth = settings.MaxGravityDepth;
+
         return true;
 	}
+
+    public void RegisterPlanet(PlanetEditor planet)
+    {
+        Logger.Log("Planet Registered: Type=" + planet.Type + " Size=" + planet.PlanetRadius, 1);
+    }
 
     public void BuildNewLevel()
     {
@@ -74,4 +79,5 @@ public class PlanetManager
         }
         return false;
     }
+
 }
