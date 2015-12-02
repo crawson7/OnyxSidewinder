@@ -66,18 +66,25 @@
      <Compile Include="Assets\Scripts\Game\ObjectControllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Game\ObjectControllers\SceneController.cs" />
      <Compile Include="Assets\Scripts\Game\PlanetManager.cs" />
+     <Compile Include="Assets\Scripts\Game\Planets\PlanetBase.cs" />
+     <Compile Include="Assets\Scripts\Game\Planets\PlanetBouncer.cs" />
+     <Compile Include="Assets\Scripts\Game\Planets\PlanetChomper.cs" />
+     <Compile Include="Assets\Scripts\Game\Planets\PlanetEditor.cs" />
+     <Compile Include="Assets\Scripts\Game\Planets\PlanetPopper.cs" />
      <Compile Include="Assets\Scripts\Game\SceneBuilder.cs" />
      <Compile Include="Assets\Scripts\Platform\Interfaces\BaseType.cs" />
      <Compile Include="Assets\Scripts\Platform\Managers\DataManager.cs" />
      <Compile Include="Assets\Scripts\Platform\Managers\GameControl.cs" />
      <Compile Include="Assets\Scripts\Platform\Managers\InputManager.cs" />
      <Compile Include="Assets\Scripts\Platform\Managers\SceneManager.cs" />
+     <Compile Include="Assets\Scripts\Platform\Utilities\Easing.cs" />
      <Compile Include="Assets\Scripts\Platform\Utilities\FloatRingBuffer.cs" />
      <Compile Include="Assets\Scripts\Platform\Utilities\Logger.cs" />
      <Compile Include="Assets\Scripts\Platform\Utilities\RingBuffer.cs" />
      <Compile Include="Assets\Scripts\Platform\Utilities\StateMachine.cs" />
      <Compile Include="Assets\Scripts\Platform\Utilities\Utilities.cs" />
      <None Include="Assets\Resources\Data\ScenesData.txt" />
+     <None Include="Assets\Resources\Data\LevelsData.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

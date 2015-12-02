@@ -27,12 +27,15 @@ public class PlanetManager
         _minGravityDepth = settings.MinGravityDepth;
         _maxGravityDepth = settings.MaxGravityDepth;
 
+		LoadManualPlanets();
         return true;
 	}
 
     public void RegisterPlanet(PlanetEditor planet)
     {
         Logger.Log("Planet Registered: Type=" + planet.Type + " Size=" + planet.PlanetRadius, 1);
+		// TODO: Assign Behavior, Type and all other settings to the planet.
+		// TODO; Store the planet in the planets registry.
     }
 
     public void BuildNewLevel()
@@ -52,6 +55,20 @@ public class PlanetManager
             _planets[i].Reset();
         }
     }
+
+	private void LoadManualPlanets()
+	{
+		// Get all Manually placed planets in the Level Scene.
+		SceneController sc = SceneManager.Instance.GetScene(Global.Level.Name);
+		if(sc == null){return;}
+		PlanetEditor[] manualPlanets = sc.gameObject.GetComponentsInChildren<PlanetEditor>(false);
+
+		// Register each of the manually placed planets.
+		for(int i=0; i<manualPlanets.Length; i++)
+		{
+			RegisterPlanet(manualPlanets[i]);
+		}
+	}
 
     public bool CheckShipAttach()
     {

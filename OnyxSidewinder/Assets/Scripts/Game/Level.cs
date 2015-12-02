@@ -32,6 +32,7 @@ public class Level
     public Bounds Bounds { get { return _bounds; } }
     public PlanetManager Planets { get { return _planets; } }
     public LevelState State {get{return _state;} set{_state = value;}}
+	public string Name {get{return _data.SceneName; }}
 
     public bool DebugCameraEnabled { get { return _debugCameraEnabled; } }
     public DebugPrefabController CameraTarget { get { return _debugCameraTargetController; } }

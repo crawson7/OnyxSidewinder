@@ -119,15 +119,17 @@ public class SceneManager : MonoBehaviour
         {
             if(load.SceneName == _registeredScenes[i].Name)
             {
-                if (!_registeredScenes[i].Initialize())
+				SceneController sc = _registeredScenes[i];
+				Logger.Log("Scene Manager - Activating Scene: " + sc.Name, 1);
+				_activeScenes.Add(sc.Name, sc);
+				sc.gameObject.transform.SetParent(GameParent.transform, false);
+				_registeredScenes.RemoveAt(i);
+
+                if (!sc.Initialize())
                 {
                     Logger.Log("New Scene: " + _registeredScenes[i].Name + " Could not be initialized.", 4);
                     return;
                 }
-
-                _activeScenes.Add(_registeredScenes[i].Name, _registeredScenes[i]);
-                _registeredScenes[i].gameObject.transform.SetParent(GameParent.transform, false);
-                _registeredScenes.RemoveAt(i);
                 return;
             }
         }
