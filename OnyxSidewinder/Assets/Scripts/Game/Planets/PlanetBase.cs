@@ -25,10 +25,12 @@ public class PlanetBase : MonoBehaviour
     protected StateMachine _states;
     protected GameObject _planetObject;
     protected GameObject _gravityObject;
+	private PlanetData _data;
     #endregion
 
     #region Public Variables and Properties
     // Properties
+	public PlanetData Data {get{return _data;}}
     public bool Active { get { return _active; } }
     public PlanetType Type { get { return _type; } set { _type = value; SetType(_type); } }
     public string pState { get { return _states.CurrentState; } set { if (_states.IsValid(value)){ _states.SetTo(value); } } }

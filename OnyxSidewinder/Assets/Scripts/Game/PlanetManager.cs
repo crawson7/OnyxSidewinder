@@ -15,7 +15,9 @@ public class PlanetManager
     private float _minGravityDepth;
     private float _maxGravityDepth;
     private List<PlanetData> _planetsData = new List<PlanetData>();
+	private List<PlanetBase> _newPlanets = new List<PlanetBase>();
 
+	#region INITIALIZATION AND DATA PREP
 	public bool Initialize(LevelSettingsEditor settings)
 	{
         _rect = settings.Bounds;
@@ -31,29 +33,6 @@ public class PlanetManager
         return true;
 	}
 
-    public void RegisterPlanet(PlanetEditor planet)
-    {
-        PlanetData pd = new PlanetData(planet.Type, planet.PlanetObject.transform.position, 0f, planet.GravityDepth, planet.PlanetRadius);
-        _planetsData.Add(pd);
-        planet.Terminate();
-    }
-
-    public void BuildNewLevel()
-    {
-        SceneBuilder sb = new SceneBuilder();
-        _planetsData.AddRange( sb.LoadPlanets(_rect, _startPosition, _minBodySize, _maxBodySize, _minGravityDepth, _maxGravityDepth, _minGapDist, _maxGapDist));
-        //if (_planets.Count == 0) { Logger.Log("Plant Loading Failed.", 5); return; }
-        PrintPlanetData();
-    }
-
-    public void Restart()
-    {
-        for (int i = 0; i < _planets.Count; i++)
-        {
-            _planets[i].Reset();
-        }
-    }
-
 	private void LoadManualPlanets()
 	{
 		// Get all Manually placed planets in the Level Scene.
@@ -68,6 +47,69 @@ public class PlanetManager
 		}
         PrintPlanetData();
 	}
+
+	public void RegisterPlanet(PlanetEditor planet)
+	{
+		PlanetData pd = new PlanetData(planet.Type, planet.PlanetObject.transform.position, 0f, planet.GravityDepth, planet.PlanetRadius);
+		_planetsData.Add(pd);
+		planet.Terminate();
+	}
+
+	public void PrepNewLevel()
+	{
+		PlanetGenerator sb = new PlanetGenerator();
+		_planetsData.AddRange( sb.LoadPlanets(_rect, _startPosition, _minBodySize, _maxBodySize, _minGravityDepth, _maxGravityDepth, _minGapDist, _maxGapDist));
+
+		PrintPlanetData();
+	}
+
+	public void Restart()
+	{
+		for (int i = 0; i < _planets.Count; i++)
+		{
+			_planets[i].Reset();
+		}
+	}
+	#endregion
+
+	#region PLANET CREATION AND DESTRUCTION
+	public void RefreshPlanets()
+	{
+		// Right now just build all of them.
+		for(int i=0; i<_planetsData.Count; i++)
+		{
+			if(!_planetsData[i].Placed && PlanetIsInRange(_planetsData[i]))
+			{
+				PlacePlanet(_planetsData[i]);
+			}
+		}
+
+		// Remove Any planets that are no longer in Range
+		for(int i=0; i<_newPlanets.Count; i++)
+		{
+			if(PlanetIsInRange(_newPlanets[i].Data))
+			{
+				RemovePlanet(_newPlanets[i]);
+			}
+		}
+	}
+
+	private void PlacePlanet(PlanetData data)
+	{
+		
+	}
+
+	private void RemovePlanet(PlanetBase planet)
+	{
+		
+	}
+
+	private bool PlanetIsInRange(PlanetData data)
+	{
+		return true;
+	}
+	#endregion
+
 
     public bool CheckShipAttach()
     {

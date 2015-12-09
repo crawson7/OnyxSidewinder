@@ -253,6 +253,7 @@ public class PlanetData
 	public float Gap, Gravity, Body;
     public PlanetType Type;
     public bool full = false;
+	public bool Placed = false;
 
 	public PlanetData() {}
 

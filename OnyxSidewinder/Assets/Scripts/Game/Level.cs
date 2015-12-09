@@ -75,7 +75,8 @@ public class Level
     private void BuildLevel()
     {
         Logger.Log("Building Level " + _data.ID, 1);
-        _planets.BuildNewLevel();
+        _planets.PrepNewLevel();
+		_planets.RefreshPlanets();
     }
 
     public void Initialize()

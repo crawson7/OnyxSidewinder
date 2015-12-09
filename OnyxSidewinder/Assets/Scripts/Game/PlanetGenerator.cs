@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SceneBuilder
+public class PlanetGenerator
 {
     private Bounds _bounds;
     private Vector3 _startPosition;
@@ -19,7 +19,6 @@ public class SceneBuilder
     {
         // TODO: Fix alignment of the first planet.
 
-        //List<PlanetController> planets = new List<PlanetController>();
         List<PlanetData> planets = new List<PlanetData>();
 
         // Set Bounds
@@ -294,21 +293,8 @@ public class SceneBuilder
     private PlanetData PlacePlanet(float body, float gravity, Vector3 pos, List<PlanetData> planets)
     {
         PlanetType type = GetPlanetType(body);
-
-        GameObject prefab = Resources.Load("Game/Planet") as GameObject;
-        //return null;
-        
-        GameObject planet5 = GameObject.Instantiate<GameObject>(prefab);
-        if (planet5 == null) { return null; }
-        PlanetController pc5 = planet5.GetComponent<PlanetController>();
-        pc5.Initialize(body, gravity, type);
-        //planets.Add(pc5);
-        PlanetData pd = new PlanetData(PlanetType.Bouncer, pos, 0, gravity, body);
+        PlanetData pd = new PlanetData(type, pos, 0, gravity, body);
         planets.Add(pd);
-        pc5 = planet5.GetComponent<PlanetController>();
-        pc5.gameObject.transform.position = pos;
-        pc5.gameObject.transform.SetParent(SceneManager.Instance.GameParent.transform, false);
-        pc5.ID = planets.Count;
         return pd;
         
     }
