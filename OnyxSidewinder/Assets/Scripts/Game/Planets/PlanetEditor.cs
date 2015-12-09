@@ -22,14 +22,17 @@ public class PlanetEditor : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        // TODO: Planet Manager does not exist yet. Need to find another way to register planets.
-        //Global.Level.Planets.RegisterPlanet(this);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public void Terminate()
+    {
+        Object.Destroy(gameObject);
+    }
 
     private void OnValidate()
     {

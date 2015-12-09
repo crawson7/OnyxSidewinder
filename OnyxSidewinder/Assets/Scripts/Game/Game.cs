@@ -252,6 +252,7 @@ public class PlanetData
 	public Vector2 Pos;
 	public float Gap, Gravity, Body;
     public PlanetType Type;
+    public bool full = false;
 
 	public PlanetData() {}
 
@@ -262,6 +263,20 @@ public class PlanetData
 		Body = body;
 		Pos = Vector2.zero;
 	}
+
+    public PlanetData(PlanetType type, Vector2 pos, float gap, float gravity, float body)
+    {
+        Type = type;
+        Gap = gap;
+        Gravity = gravity;
+        Body = body;
+        Pos = pos;
+    }
+
+    public override string ToString()
+    {
+        return Type.ToString() + " at " + Pos.ToString() + " - Body: " + Body + " Gravity: " + Gravity; 
+    }
 }
 
 [System.Serializable]

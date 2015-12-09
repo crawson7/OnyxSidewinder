@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Text;
 using System.Collections.Generic;
 
 public class PlanetManager
@@ -14,7 +14,7 @@ public class PlanetManager
     private float _maxBodySize;
     private float _minGravityDepth;
     private float _maxGravityDepth;
-    private List<PlanetBase> _newPlanets = new List<PlanetBase>();
+    private List<PlanetData> _planetsData = new List<PlanetData>();
 
 	public bool Initialize(LevelSettingsEditor settings)
 	{
@@ -33,19 +33,17 @@ public class PlanetManager
 
     public void RegisterPlanet(PlanetEditor planet)
     {
-        Logger.Log("Planet Registered: Type=" + planet.Type + " Size=" + planet.PlanetRadius, 1);
-		// TODO: Assign Behavior, Type and all other settings to the planet.
-		// TODO; Store the planet in the planets registry.
+        PlanetData pd = new PlanetData(planet.Type, planet.PlanetObject.transform.position, 0f, planet.GravityDepth, planet.PlanetRadius);
+        _planetsData.Add(pd);
+        planet.Terminate();
     }
 
     public void BuildNewLevel()
     {
-        // TODO: Destroy old level objects if needed.
-
         SceneBuilder sb = new SceneBuilder();
-        _planets = sb.LoadPlanets(_rect, _startPosition, _minBodySize, _maxBodySize, _minGravityDepth, _maxGravityDepth, _minGapDist, _maxGapDist);
-        if (_planets.Count == 0) { Logger.Log("Plant Loading Failed.", 5); return; }
-
+        _planetsData.AddRange( sb.LoadPlanets(_rect, _startPosition, _minBodySize, _maxBodySize, _minGravityDepth, _maxGravityDepth, _minGapDist, _maxGapDist));
+        //if (_planets.Count == 0) { Logger.Log("Plant Loading Failed.", 5); return; }
+        PrintPlanetData();
     }
 
     public void Restart()
@@ -68,6 +66,7 @@ public class PlanetManager
 		{
 			RegisterPlanet(manualPlanets[i]);
 		}
+        PrintPlanetData();
 	}
 
     public bool CheckShipAttach()
@@ -97,4 +96,14 @@ public class PlanetManager
         return false;
     }
 
+    public void PrintPlanetData()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.Append("Planet Data:\n");
+        for (int i=0; i<_planetsData.Count; i++)
+        {
+            builder.Append(_planetsData[i].ToString() + "\n");
+        }
+        Logger.Log(builder.ToString(), 1);
+    }
 }

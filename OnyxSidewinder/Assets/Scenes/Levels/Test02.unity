@@ -215,7 +215,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 332312418}
+  - {fileID: 969732437}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -262,38 +262,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Width: 10
   Height: 20
---- !u!21 &332312418
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Particles/Additive
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-    m_Floats:
-      data:
-        first:
-          name: _InvFade
-        second: 1
-    m_Colors:
-      data:
-        first:
-          name: _TintColor
-        second: {r: .5, g: .5, b: .5, a: .5}
 --- !u!1 &427939286
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +400,129 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
   m_PrefabInternal: {fileID: 472985919}
+--- !u!21 &969732437
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Particles/Additive
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _InvFade
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _TintColor
+        second: {r: .5, g: .5, b: .5, a: .5}
+--- !u!1001 &1664243536
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1910291191}
+    m_Modifications:
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.28000021
+      objectReference: {fileID: 0}
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 13.6199999
+      objectReference: {fileID: 0}
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 413744, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.25999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 413744, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1.25999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 413744, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1.25999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416920, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: PlanetRadius
+      value: .629999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 464342, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 6.53999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 464342, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 6.53999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 464342, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 6.53999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416920, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: GravityDepth
+      value: 3.26999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 21226204, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 05aeea7f02250f7448ac19139039f929,
+        type: 3}
+    - target: {fileID: 11416920, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 167862, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+      propertyPath: m_Name
+      value: PlanetTemplate (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1664243537 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 464066, guid: bf30e33b7fb278046906a3e520126a17, type: 2}
+  m_PrefabInternal: {fileID: 1664243536}
 --- !u!1 &1885622058
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +608,7 @@ Transform:
   - {fileID: 1885622060}
   - {fileID: 472985920}
   - {fileID: 87115495}
+  - {fileID: 1664243537}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!114 &1910291192
