@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private bool _charging = false;
     private float _radius;
     private float _circumfrence;
-    private PlanetController _orbit;
+    private PlanetBase _orbit;
     private bool _alive;
     private Vector2 _velocity;
     private float _gravity = 8.25f;
@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
         Pivot.transform.Rotate(new Vector3(0, 0, degrees));
     }
 
-    public void Orbit(PlanetController planet)
+    public void Orbit(PlanetBase planet)
     {
 		if(planet.Center.y > Game.Instance.GoalHeight)
 		{

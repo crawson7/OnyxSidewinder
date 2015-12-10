@@ -27,7 +27,7 @@ public class Game
     #endregion
 
     private PlayerController _player;
-    private PlanetController _activePlanet;
+    private PlanetBase _activePlanet;
     private float _checkInterval;
     private float _checkFrequency = 0.1f;
     public GameObject GameObj;
@@ -41,7 +41,7 @@ public class Game
     public bool Touching;
     public GameState State { get { return _state; } }
     public PlayerController Player { get { return _player; } }
-    public PlanetController ActivePlanet {  get { return _activePlanet; } }
+    public PlanetBase ActivePlanet {  get { return _activePlanet; } }
 	public Level CurrentLevel{get{return _level;}}
 	public float GoalHeight {get{return CurrentLevel.Bounds.max.y;}}
 
@@ -187,14 +187,14 @@ public class Game
         }
     }
 
-    public void HandlePlanetCollide(PlanetController planet)
+    public void HandlePlanetCollide(PlanetBase planet)
     {
         _player.Kill();
         End(false);
         //UI Death Message
     }
 
-    public void HandleGravityCollide(PlanetController planet)
+    public void HandleGravityCollide(PlanetBase planet)
     {
         _player.Orbit(planet);
         _activePlanet = planet;

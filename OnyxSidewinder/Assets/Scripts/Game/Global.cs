@@ -8,6 +8,7 @@ public static class Global
 
     public static Level Level{get{return Game.Instance.CurrentLevel;}}
 	public static PlayerController Player{get{return Game.Instance.Player;}}
+    public static GameObject World { get { return SceneManager.Instance.GameParent; } }
 
     public static PlanetTypeData GetPlanetTypeData(PlanetType type)
     {

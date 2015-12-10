@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlanetChomper : PlanetBase {
 
-    public override void Initialize(float body, float gravity, PlanetType type)
+    public override void Initialize(PlanetData data)
     {
-        base.Initialize(body, gravity, type);
+        base.Initialize(data);
     }
 
     public override void Reset()

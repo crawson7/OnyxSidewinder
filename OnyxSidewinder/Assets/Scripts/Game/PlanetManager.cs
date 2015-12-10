@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class PlanetManager
 {
-    private List<PlanetController> _planets;
     private Bounds _bounds = new Bounds();
     private Rect _rect;
     private Vector3 _startPosition;
@@ -15,7 +14,8 @@ public class PlanetManager
     private float _minGravityDepth;
     private float _maxGravityDepth;
     private List<PlanetData> _planetsData = new List<PlanetData>();
-	private List<PlanetBase> _newPlanets = new List<PlanetBase>();
+	private List<PlanetBase> _planets = new List<PlanetBase>();
+    private GameObject _planetPrefab;
 
 	#region INITIALIZATION AND DATA PREP
 	public bool Initialize(LevelSettingsEditor settings)
@@ -28,7 +28,7 @@ public class PlanetManager
         _maxBodySize = settings.MaxBodySize;
         _minGravityDepth = settings.MinGravityDepth;
         _maxGravityDepth = settings.MaxGravityDepth;
-
+        _planetPrefab = Resources.Load("Game/Planet") as GameObject;
 		LoadManualPlanets();
         return true;
 	}
@@ -75,7 +75,7 @@ public class PlanetManager
 	#region PLANET CREATION AND DESTRUCTION
 	public void RefreshPlanets()
 	{
-		// Right now just build all of them.
+        // Place any planets that are now in range
 		for(int i=0; i<_planetsData.Count; i++)
 		{
 			if(!_planetsData[i].Placed && PlanetIsInRange(_planetsData[i]))
@@ -84,28 +84,47 @@ public class PlanetManager
 			}
 		}
 
-		// Remove Any planets that are no longer in Range
-		for(int i=0; i<_newPlanets.Count; i++)
+        // Remove Any planets that are no longer in Range
+        List<int> indicesToRemove = new List<int>();
+		for(int i=0; i<_planets.Count; i++)
 		{
-			if(PlanetIsInRange(_newPlanets[i].Data))
+			if(!PlanetIsInRange(_planets[i].Data))
 			{
-				RemovePlanet(_newPlanets[i]);
+                indicesToRemove.Add(i);
 			}
 		}
+        for(int i=indicesToRemove.Count-1; i>=0; i--)
+        {
+            RemovePlanetAt(indicesToRemove[i]);
+        }
 	}
 
 	private void PlacePlanet(PlanetData data)
 	{
-		
+        GameObject go = (GameObject) GameObject.Instantiate(_planetPrefab, data.Pos, Quaternion.identity);
+        if (go == null) { Logger.Log("There is an error Instantiating Planet", 4); return; }
+
+        go.name = data.Type.ToString();
+        go.transform.SetParent(Global.World.transform, false);
+        PlanetBase planet = go.GetComponent<PlanetBase>();
+        if(planet== null) { Logger.Log("There is an error Instantiating Planet", 4);  return; }
+
+        planet.Initialize(data);
+        data.Placed = true;
+        _planets.Add(planet);
 	}
 
-	private void RemovePlanet(PlanetBase planet)
+	private void RemovePlanetAt(int index)
 	{
-		
+        _planets[index].Data.Placed = false;
+        _planets[index].Terminate();
+        _planets.RemoveAt(index);
+        return;
 	}
 
 	private bool PlanetIsInRange(PlanetData data)
 	{
+        // TODO: Need to determine what constitutes a planet being in range.
 		return true;
 	}
 	#endregion
