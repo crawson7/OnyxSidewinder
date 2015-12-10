@@ -24,6 +24,7 @@ public class PlanetBase : MonoBehaviour
     private float _gravityDepth;
     protected float _gapDepth;
     protected bool _active;
+	protected bool _orbitActive;
     protected StateMachine _states;
     public GameObject PlanetObject;
     public GameObject GravityObject;
@@ -66,16 +67,30 @@ public class PlanetBase : MonoBehaviour
 
     public virtual void Initialize(PlanetData data)
     {
+		PlanetObject = gameObject.transform.GetChild(0).gameObject;
+		GravityObject = gameObject.transform.GetChild(1).gameObject;
+		if(PlanetObject == null || GravityObject == null)
+		{Logger.Log("Error Initializing Planet " + data.Type, 4);return;}
+
         _data = data;
         _active = true;
+		_orbitActive = false;
         Type = data.Type;
         BodyRadius = data.Body;
         GravityDepth = data.Gravity;
     }
 
+	private void Update()
+	{
+		if(_orbitActive)
+		{
+			HandleOrbit();
+		}
+	}
+
     public void Terminate()
     {
-        Object.Destroy(this);
+		Object.Destroy(this.gameObject);
     }
 
     public virtual void Reset()
@@ -103,13 +118,15 @@ public class PlanetBase : MonoBehaviour
         if (BodyCollision(pos))
         {
             Logger.Log("Body Collide", 2);
-            Game.Instance.HandlePlanetCollide(this);
+            //Game.Instance.HandlePlanetCollide(this);
+			HandleBodyCollide();
             return true;
         }
         else if (GravityCollision(pos))
         {
             Logger.Log("Gravity Collide", 2);
-            Game.Instance.HandleGravityCollide(this);
+            //Game.Instance.HandleGravityCollide(this);
+			HandleGravityCollide();
             return true;
         }
         return false;
@@ -135,18 +152,24 @@ public class PlanetBase : MonoBehaviour
 
     public virtual void HandleBodyCollide()
     {
-
+		Game.Instance.HandlePlanetCollide(this);
     }
 
     public virtual void HandleGravityCollide()
     {
-
-
+		_orbitActive = true;
+		Game.Instance.HandleGravityCollide(this);
     }
+
+	public virtual void Release()
+	{
+		_orbitActive = false;
+		_active = false;
+	}
 
     public virtual void HandleOrbit()
     {
-
+		// Runs While Palyer is orbiting.
     }
 }
 

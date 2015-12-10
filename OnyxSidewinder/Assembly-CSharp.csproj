@@ -62,7 +62,6 @@
      <Compile Include="Assets\Scripts\Game\ObjectControllers\BaseCameraBehavior.cs" />
      <Compile Include="Assets\Scripts\Game\ObjectControllers\CameraController.cs" />
      <Compile Include="Assets\Scripts\Game\ObjectControllers\DebugPrefabController.cs" />
-     <Compile Include="Assets\Scripts\Game\ObjectControllers\PlanetController.cs" />
      <Compile Include="Assets\Scripts\Game\ObjectControllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Game\ObjectControllers\SceneController.cs" />
      <Compile Include="Assets\Scripts\Game\PlanetGenerator.cs" />

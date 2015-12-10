@@ -1,24 +1,23 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/PlanetManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/Planets/PlanetBase.cs">
     <Files>
-      <File FileName="Assets/Scripts/Game/PlanetGenerator.cs" Line="5" Column="29" />
+      <File FileName="Assets/Scripts/Game/Game.cs" Line="192" Column="9" />
+      <File FileName="Assets/Scripts/Game/PlanetGenerator.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Game/Planets/PlanetEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Game/Game.cs" Line="255" Column="30" />
-      <File FileName="Assets/Scripts/Game/Level.cs" Line="79" Column="29" />
-      <File FileName="Assets/Scripts/Game/LevelSettingsEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Editor/CreateLevelMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Game/LevelsData.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Game/Global.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Game/DialogControllers/LandingDialogController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Platform/Managers/SceneManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Game/PlanetManager.cs" Line="82" Column="5" />
-      <File FileName="Assets/Scripts/Game/Planets/PlanetBase.cs" Line="33" Column="45" />
+      <File FileName="Assets/Scripts/Game/PlanetManager.cs" Line="122" Column="31" />
+      <File FileName="Assets/Scripts/Game/Planets/PlanetBase.cs" Line="93" Column="33" />
+      <File FileName="Assets/Scripts/Game/Planets/PlanetBouncer.cs" Line="24" Column="61" />
+      <File FileName="Assets/Scripts/Game/Planets/PlanetChomper.cs" Line="24" Column="24" />
+      <File FileName="Assets/Scripts/Game/Planets/PlanetPopper.cs" Line="24" Column="43" />
+      <File FileName="Assets/Scripts/Game/ObjectControllers/PlayerController.cs" Line="165" Column="96" />
+      <File FileName="Assets/Scripts/Platform/Managers/SceneManager.cs" Line="223" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/chris.rawson/Documents/Personal/Projects/OnyxSidewinder/OnyxSidewinder/Assets/Scripts/Platform/Managers/SceneManager.cs" line="223" column="1" />
+      <Breakpoint file="/Users/chris.rawson/Documents/Personal/Projects/OnyxSidewinder/OnyxSidewinder/Assets/Scripts/Game/PlanetManager.cs" line="122" column="26" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

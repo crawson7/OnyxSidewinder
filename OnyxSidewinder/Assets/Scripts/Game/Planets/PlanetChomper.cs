@@ -15,24 +15,21 @@ public class PlanetChomper : PlanetBase {
 
     public override void SetType(PlanetType type)
     {
-        // Modify the behavior and skin to match the type
-        // Set the Sprite to match.
-        // Reset the animations and state
+		base.SetType(type);
     }
 
-    public override void HandleBodyCollide()
-    {
+	public override void HandleBodyCollide()
+	{
+		Logger.Log("Collided with Chomper", 1);
+		Global.Player.Kill();
+		Game.Instance.End(false);
+	}
 
-    }
-
-    public override void HandleGravityCollide()
-    {
-
-
-    }
-
-    public override void HandleOrbit()
-    {
-
-    }
+	public override void HandleGravityCollide()
+	{
+		Logger.Log("Collided with Chompers Gravity");
+		_orbitActive = true;
+		Game.Instance.HandleGravityCollide(this);
+	}
+		
 }

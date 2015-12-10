@@ -160,6 +160,11 @@ public class PlayerController : MonoBehaviour
         Pivot.transform.Rotate(new Vector3(0, 0, degrees));
     }
 
+	public void Reflect()
+	{
+		// TODO: reverse the players velocity but to not let the player attach to the current planet.
+	}
+
     public void Orbit(PlanetBase planet)
     {
 		if(planet.Center.y > Game.Instance.GoalHeight)

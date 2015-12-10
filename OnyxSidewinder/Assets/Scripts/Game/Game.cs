@@ -171,7 +171,7 @@ public class Game
         {
             if (_player.Orbiting)
             {
-                ActivePlanet.Active = false;
+				ActivePlanet.Release();
                 _player.Release();
             }
         }

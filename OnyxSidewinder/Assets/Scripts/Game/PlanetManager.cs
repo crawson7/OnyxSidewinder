@@ -106,7 +106,9 @@ public class PlanetManager
 
         go.name = data.Type.ToString();
         go.transform.SetParent(Global.World.transform, false);
-        PlanetBase planet = go.GetComponent<PlanetBase>();
+
+		// Attach Behavior
+		PlanetBase planet = AttachPlanetBehavior(go, data.Type);
         if(planet== null) { Logger.Log("There is an error Instantiating Planet", 4);  return; }
 
         planet.Initialize(data);
@@ -120,6 +122,47 @@ public class PlanetManager
         _planets[index].Terminate();
         _planets.RemoveAt(index);
         return;
+	}
+
+	public void RemovePlanet(PlanetBase planet)
+	{
+		for(int i=0; i<_planets.Count; i++)
+		{
+			if(_planets[i] == planet)
+			{
+				RemovePlanetAt(i);
+			}
+		}
+		
+	}
+
+	private PlanetBase AttachPlanetBehavior(GameObject go, PlanetType type)
+	{
+		PlanetBase behavior;
+		switch(type)
+		{
+			case PlanetType.Popper:
+			{
+				behavior = go.AddComponent<PlanetPopper>();
+				break;
+			}
+			case PlanetType.Bouncer:
+			{
+				behavior = go.AddComponent<PlanetBouncer>();
+				break;
+			}
+			case PlanetType.Chomper:
+			{
+				behavior = go.AddComponent<PlanetChomper>();
+				break;
+			}
+			default:
+			{
+				behavior = go.AddComponent<PlanetBase>();
+				break;
+			}
+		}
+		return behavior;
 	}
 
 	private bool PlanetIsInRange(PlanetData data)
